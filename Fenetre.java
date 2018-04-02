@@ -5,13 +5,13 @@ public class Fenetre {
     public final static int DIMENSION_CASE = 60;
     
     /** Marge dans tous les côtés (haut/bas/gauche/droite) */
-    public final static int MARGE = 30;
+    public final static int MARGE = 60;
 
     private info.graphics.Window fenetre;
     
     public Fenetre (int nbLignes, int nbColonnes, String titre) {
-        final int largeur = nbLignes*DIMENSION_CASE + 2*MARGE;
-        final int hauteur = nbColonnes*DIMENSION_CASE + 2*MARGE;
+        final int largeur = (nbLignes-1)*DIMENSION_CASE + 2*MARGE;
+        final int hauteur = (nbColonnes-1)*DIMENSION_CASE + 2*MARGE;
         this.fenetre = new info.graphics.Window(largeur, hauteur, titre);
     }
     
