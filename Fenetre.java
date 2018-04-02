@@ -2,18 +2,16 @@
 import info.graphics.Color;
 
 public class Fenetre {
-    public final static int NOMBRE_LIGNES = 8;
-    public final static int NOMBRE_COLONNES = 8;
     public final static int DIMENSION_CASE = 60;
     
     /** Marge dans tous les côtés (haut/bas/gauche/droite) */
-    public final static int MARGE = 60;
+    public final static int MARGE = 30;
 
     private info.graphics.Window fenetre;
     
-    public Fenetre (String titre) {
-        final int largeur = NOMBRE_LIGNES*DIMENSION_CASE + 2*MARGE;
-        final int hauteur = NOMBRE_COLONNES*DIMENSION_CASE + 2*MARGE;
+    public Fenetre (int nbLignes, int nbColonnes, String titre) {
+        final int largeur = nbLignes*DIMENSION_CASE + 2*MARGE;
+        final int hauteur = nbColonnes*DIMENSION_CASE + 2*MARGE;
         this.fenetre = new info.graphics.Window(largeur, hauteur, titre);
     }
     
