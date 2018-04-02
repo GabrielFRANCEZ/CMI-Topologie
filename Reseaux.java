@@ -18,7 +18,7 @@ public class Reseaux {
     /** fenetre de dessin, facilite les conversions de coordonnées */
     public Fenetre fenetre;
 
-    public Reseaux(int nbLignes, int nbColonnes) {
+    public Reseaux(int nbLignes, int nbColonnes, Adjacence madj, Adjacence nadj) {
         // matrice de taille fixe pour l'instant
         this.couleurs = new boolean[nbLignes][nbColonnes];
         for (int i = 0; i < nbLignes; i++) {
@@ -29,8 +29,8 @@ public class Reseaux {
 
         this.fenetre = new Fenetre(nbLignes, nbColonnes, "Discrete Topology");
 
-        this.n_adjacence = Adjacence.ADJ4;
-        this.m_adjacence = Adjacence.ADJ8;
+        this.n_adjacence = nadj;
+        this.m_adjacence = madj;
 
         this.fenetre.afficher();
     }
