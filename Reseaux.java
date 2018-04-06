@@ -77,7 +77,7 @@ public class Reseaux {
     /**
      * Donne les voisins selon la 8-adjacence : N(p)
      */
-    public int[][] voisinsN (int x, int y) {
+    public int[][] voisins8 (int x, int y) {
         int[][] voisins = {
                 {x+1,y},{x-1,y},{x,y+1},{x,y-1},
                 {x+1,y+1},{x+1,y-1},{x-1,y+1},{x-1,y-1}
@@ -89,7 +89,7 @@ public class Reseaux {
         for(int i = 0 ; i < this.couleurs.length ; i++) {
             for(int j = 0 ; j < this.couleurs[i].length ; j++){
                 this.fenetre.dessinerPoint(i, j, this.couleurs[i][j]);
-                int[][] voisins = this.voisinsN(i, j);
+                int[][] voisins = this.voisins8(i, j);
                 for (int k = 0; k < voisins.length; k++) {
                     final int x2 = voisins[k][0];
                     final int y2 = voisins[k][1];
