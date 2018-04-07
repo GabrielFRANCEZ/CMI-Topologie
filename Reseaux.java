@@ -50,53 +50,30 @@ public class Reseaux {
     }
 
     public ArrayList<ArrayList<int[]>> getComposants () {
-        ArrayList<ArrayList<int[]>> comps = new ArrayList<ArrayList<int[]>>(1);
-        for (int i = 0; i < this.couleurs.length; i++) {
-            int j;
-            for (j = 0; j < this.couleurs[0].length && j < i; j++) {
-                boolean insere = false;
-                ArrayList<int[]> composant;
-                for (int k = 0; k < comps.size() && !insere; k++) {
-                    composant = comps.get(k);
-                    for (int m = 0; m < composant.size() && !insere; m++) {
-                        int[] point = composant.get(m);
-                        int x = point[0];
-                        int y = point[1];
-                        if (this.couleurs[i][j] == this.couleurs[x][y]
-                        && this.adjacence(i,j,x,y)) {
-                            insere = true;
-                            composant.add(new int[] {i,j});
-                        }
+        ArrayList<int []> points = new ArrayList<int []> ();
+        for (int x = 0; x < this.couleurs.length; x++) {
+            for (int y = 0; y < this.couleurs[0].length; y++) {
+                points.add(new int[] {x,y});
+            }
+        }
+        ArrayList<ArrayList<int[]>> comps = new ArrayList<ArrayList<int[]>>();
+        while (points.size() > 0) {
+            ArrayList<int []> composant = new ArrayList<int []> ();
+            composant.add(points.remove(0));
+            for (int i = 0; i < composant.size(); i++) {
+                int[] pointComposant = composant.get(i);
+                int x1 = pointComposant[0]; int y1 = pointComposant[1];
+                for (int j = 0; j < points.size(); j++) {
+                    int[] point = points.get(j);
+                    int x2 = point[0]; int y2 = point[1];
+                    if (this.couleurs[x1][y1] == this.couleurs[x2][y2] && this.adjacence(x1,y1,x2,y2)) {
+                        composant.add(point);
+                        points.remove(j);
+                        j--;
                     }
                 }
-                if (!insere) {
-                    composant = new ArrayList<int []> ();
-                    composant.add(new int[] {i,j});
-                    comps.add(composant);
-                }
             }
-            for (int i2 = i; i2 >= 0; i2--) {
-                boolean insere = false;
-                ArrayList<int[]> composant;
-                for (int k = 0; k < comps.size() && !insere; k++) {
-                    composant = comps.get(k);
-                    for (int m = 0; m < composant.size() && !insere; m++) {
-                        int[] point = composant.get(m);
-                        int x = point[0];
-                        int y = point[1];
-                        if (this.couleurs[i2][j] == this.couleurs[x][y]
-                        && this.adjacence(i2,j,x,y)) {
-                            insere = true;
-                            composant.add(new int[] {i2,j});
-                        }
-                    }
-                }
-                if (!insere) {
-                    composant = new ArrayList<int []> ();
-                    composant.add(new int[] {i2,j});
-                    comps.add(composant);
-                }
-            }
+            comps.add(composant);
         }
         return comps;
     }
