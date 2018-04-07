@@ -38,16 +38,6 @@ public class Composant extends Set {
     }
 
     @Override
-    public void setCouleur (int x, int y, boolean couleur) throws IllegalArgumentException {
-        // TODO ne pas utiliser une exception
-        int index = this.getIndex(x, y);
-        if (index == -1) {
-            throw new IllegalArgumentException("Point non trouvé : " + x + " " + y);
-        }
-        this.points.set(index, new Point(x,y,couleur));
-    }
-
-    @Override
     public boolean ajouterPoint (Point p) {
         if(this.pointPresent(p.getX(), p.getY()))
             return false;

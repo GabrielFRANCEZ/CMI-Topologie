@@ -22,9 +22,6 @@ public abstract class Set {
     /** méthode permettant de laisser libre le choix du stockage de Point */
     public abstract Point getPoint (int x, int y);
 
-    /** Remplace un point du set */
-    public abstract void setCouleur (int x, int y, boolean couleur);
-
     /**
      * Permet d'ajouter un point au set
      * @return true si l'insertion est effectuée, false sinon

@@ -36,7 +36,6 @@ public class Picture extends Set {
         return new Point(x,y,c);
     }
 
-    @Override
     public void setCouleur (int x, int y, boolean couleur) {
         if (this.pointPresent(x,y)) {
             this.couleurs[x][y] = couleur;
