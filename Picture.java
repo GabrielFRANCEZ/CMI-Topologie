@@ -44,8 +44,9 @@ public class Picture extends Set {
     }
 
     @Override
-    public void ajouterPoint (Point p) {
+    public boolean ajouterPoint (Point p) {
         // TODO Implementer
+        return false;
     }
 
     @Override
@@ -53,6 +54,7 @@ public class Picture extends Set {
         return x >= 0 && x < this.couleurs.length
             && y >= 0 && y < this.couleurs[0].length;
     }
+
 
     public void dessinerReseau(){
         for(int i = 0 ; i < this.couleurs.length ; i++) {
@@ -71,6 +73,5 @@ public class Picture extends Set {
                 }
             }
         }
-
     }
 }

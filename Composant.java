@@ -15,6 +15,7 @@ public class Composant extends Set {
      * @return index dans le tableau de points
      */
     private int getIndex (int x, int y) {
+        /*
         int index = -1;
         for (int i = 0; i < points.size() && index == -1 ; i++) {
             Point p = points.get(i);
@@ -23,6 +24,8 @@ public class Composant extends Set {
             }
         }
         return index;
+        */
+       return this.points.indexOf(new Point(x, y, false));
     }
 
     @Override
@@ -45,9 +48,11 @@ public class Composant extends Set {
     }
 
     @Override
-    public void ajouterPoint (Point p) {
-        assert !this.pointPresent(p.getX(), p.getY());
+    public boolean ajouterPoint (Point p) {
+        if(this.pointPresent(p.getX(), p.getY()))
+            return false;
         this.points.add(p);
+        return true;
     }
 
     @Override

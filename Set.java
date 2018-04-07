@@ -25,8 +25,11 @@ public abstract class Set {
     /** Remplace un point du set */
     public abstract void setCouleur (int x, int y, boolean couleur);
 
-    /** Permet d'ajouter un point au set */
-    public abstract void ajouterPoint (Point p);
+    /**
+     * Permet d'ajouter un point au set
+     * @return true si l'insertion est effectuée, false sinon
+     */
+    public abstract boolean ajouterPoint (Point p);
 
     /** indique si un point est au coordonnées données*/
     public abstract boolean pointPresent (int x, int y);
@@ -77,7 +80,7 @@ public abstract class Set {
         int y = p.getY();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (this.pointPresent(x+i,y+j)) {
+                if (this.pointPresent(x+i, y+j)) {
                     voisins.add(this.getPoint(x+i,y+j));
                 }
             }
