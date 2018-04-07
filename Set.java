@@ -32,12 +32,13 @@ public abstract class Set {
     public abstract boolean pointPresent (int x, int y);
 
     /** indique si un point est contenu dans le set (couleur comprise) */
-    public boolean contientPoint (Point p) {
+    public boolean contientPointAvecCouleur (Point p) {
         boolean contient = false;
         int x = p.getX();
         int y = p.getY();
         if (this.pointPresent(x, y)) {
-            contient = this.getPoint(x, y).equals(p);
+            Point pSet = this.getPoint(x, y);
+            contient = pSet.equals(p) && pSet.getCouleur() == p.getCouleur();
         }
         return contient;
     }

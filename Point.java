@@ -19,13 +19,17 @@ public class Point extends info.graphics.Point {
         return this.couleur;
     }
 
+    /**
+     * Méthode equals
+     * Remarque : Ne vérifie pas l'égalité de la couleur
+     */
     @Override
     public boolean equals (Object obj) {
         boolean eq = false;
         if (this == obj) eq = true;
         else if (obj instanceof Point) {
             Point p = (Point) obj;
-            eq = super.equals(p) && this.couleur == p.couleur;
+            eq = super.equals(p) /* && this.couleur == p.couleur */;
         }
         return eq;
     }
