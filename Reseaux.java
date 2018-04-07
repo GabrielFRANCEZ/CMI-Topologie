@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import info.graphics.Line;
 import info.graphics.Window;
 import info.graphics.Color;
@@ -46,6 +47,35 @@ public class Reseaux {
 
     public void setCouleur (int x, int y, boolean couleur) {
         this.couleurs[x][y] = couleur;
+    }
+
+    public ArrayList<ArrayList<int[]>> getComposants () {
+        ArrayList<ArrayList<int[]>> comps = new ArrayList<ArrayList<int[]>>(1);
+        for (int i = 0; i < this.couleurs.length; i++) {
+            for (int j = 0; j < this.couleurs.length; j++) {
+                boolean insere = false;
+                ArrayList<int[]> composant;
+                for (int k = 0; k < comps.size() && !insere; k++) {
+                    composant = comps.get(k);
+                    for (int m = 0; m < composant.size() && !insere; m++) {
+                        int[] point = composant.get(m);
+                        int x = point[0];
+                        int y = point[1];
+                        if (this.couleurs[i][j] == this.couleurs[x][y]
+                            && this.adjacence(i,j,x,y)) {
+                            insere = true;
+                            composant.add(new int[] {i,j});
+                        }
+                    }
+                }
+                if (!insere) {
+                    composant = new ArrayList<int []> ();
+                    composant.add(new int[] {i,j});
+                    comps.add(composant);
+                    }
+            }
+        }
+        return comps;
     }
 
     // N'a aucun sens de mettre en public
