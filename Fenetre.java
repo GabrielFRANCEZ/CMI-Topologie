@@ -1,6 +1,6 @@
 
 import info.graphics.Color;
-
+import info.graphics.Point;
 public class Fenetre {
     public final static int DIMENSION_CASE = 60;
     
@@ -32,22 +32,22 @@ public class Fenetre {
     
     // Méthodes de dessin, prennent tous des coordonnées de grilles.
 
-    public void dessinerPoint(int x, int y, boolean estNoir) {
+    public void dessinerPoint(Point p, boolean estNoir) {
         final boolean estPlein = estNoir;
         final int diametre = DIMENSION_CASE/2;
         final int rayon = diametre/2;
-        x = this.dessinX(x);
-        y = this.dessinY(y);
+        int x = this.dessinX(p.getX());
+        int y = this.dessinY(p.getY());
         // x et y sont les coordonnées du centre du cercle
         // drawEllipse fonctionne en encadrant l'éllipse dans un rectangle
         this.fenetre.drawEllipse(x-rayon, y-rayon, estPlein, Color.black, diametre, diametre);
     }
 
-    public void dessinerLigne(int x1, int y1, int x2, int y2) {
+    public void dessinerLigne(Point p1, Point p2) {
         this.fenetre.drawLine(
             Color.black,
-            this.dessinX(x1), this.dessinY(y1),
-            this.dessinX(x2), this.dessinY(y2)
+            this.dessinX(p1.getX()), this.dessinY(p1.getY()),
+            this.dessinX(p2.getX()), this.dessinY(p2.getY())
         );
     }
 }
