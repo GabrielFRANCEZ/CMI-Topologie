@@ -3,6 +3,11 @@ import info.graphics.Line;
 import info.graphics.Window;
 import info.graphics.Color;
 import info.graphics.Point;
+
+/**
+ * Représente un réseau discret de points. <br>
+ * Propose des méthodes pour manipuler les conceptes topologiques liés.
+ */
 public class Reseaux {
     public final boolean BLANC = false;
     public final boolean NOIR = true;
@@ -22,10 +27,10 @@ public class Reseaux {
     /**
      * Reseaux Constructor
      *
-     * @param nbLignes un paramètre
-     * @param nbColonnes un paramètre
-     * @param madj un paramètre
-     * @param nadj un paramètre
+     * @param nbLignes Nombre de lignes
+     * @param nbColonnes Nombre de colonnes
+     * @param madj adjacence entre deux points noirs
+     * @param nadj adjacence entre deux points blancs, ou entre un point noir et un point blanc
      */
     public Reseaux(int nbLignes, int nbColonnes, Adjacence madj, Adjacence nadj) {
         // matrice de taille fixe pour l'instant
@@ -45,10 +50,10 @@ public class Reseaux {
     }
 
     /**
-     * Méthode getCouleur
+     * Donne la couleur du point dans la matrice (NOIR ou BLANC)
      *
-     * @param point un paramètre
-     * @return le retour
+     * @param point coordonnées du point
+     * @return la couleur du point (NOIR ou BLANC)
      */
     public boolean getCouleur (Point point) {
         // Le "background" blanc
@@ -62,10 +67,10 @@ public class Reseaux {
     }
 
     /**
-     * Méthode setCouleur
+     * Modifie la couleur d'un point dans la matrice.
      *
-     * @param point un paramètre
-     * @param couleur un paramètre
+     * @param point coordonnées du point
+     * @param couleur couleur du point (NOIR ou BLANC)
      */
     public void setCouleur (Point point, boolean couleur) {
         int x = point.getX();
@@ -74,9 +79,9 @@ public class Reseaux {
     }
 
     /**
-     * Méthode getComposants
+     * Calcule la liste des composants du réseau.
      *
-     * @return le retour
+     * @return la liste des composants du réseau
      */
     public ArrayList<ArrayList<Point>> getComposants () {
         ArrayList<Point> points = new ArrayList<Point> ();
@@ -110,7 +115,7 @@ public class Reseaux {
     // N'a aucun sens de mettre en public
     // car les deux points donnés peuvent ne pas être voisins
     /**
-     * Méthode d'aide interne pour déterminer le type d'adjacence possible
+     * Méthode d'aide interne pour déterminer le type d'adjacence possible.
      */
     private Adjacence getTypeAdjacence(Point p1, Point p2) {
         Adjacence adjacence;
@@ -123,11 +128,11 @@ public class Reseaux {
     }
 
     /**
-     * Méthode adjacence
+     * Détermine si deux points donnés sont adjacents.
      *
-     * @param p1 un paramètre
-     * @param p2 un paramètre
-     * @return le retour
+     * @param p1 un point
+     * @param p2 un point
+     * @return true s'ils sont voisins, false sinon
      */
     public boolean adjacence (Point p1, Point p2) {
         final int dx = Math.abs(p2.getX()-p1.getX());
@@ -141,7 +146,11 @@ public class Reseaux {
     }
 
     /**
-     * Donne les voisins selon la 8-adjacence : N(p)
+     * Donne les voisins selon la 8-adjacence : N(p) <br>
+     * Ignore l'adjacence réelle des points.
+     *
+     * @param p un point
+     * @return la liste des voisins de p selon la 8-adjacence
      */
     public Point[] voisins8 (Point p) {
         int x = p.getX();
@@ -153,6 +162,12 @@ public class Reseaux {
         return voisins;
     }
     
+    /**
+     * Donne les voisins d'un point
+     *
+     * @param p un point
+     * @return la liste des voisins de p
+     */
     public Point[] voisins (Point p) {
         Point[] voisins8 = this.voisins8(p);
         ArrayList<Point> voisins = new ArrayList<Point>();
@@ -165,8 +180,7 @@ public class Reseaux {
     }
 
     /**
-     * Méthode dessinerReseau
-     *
+     * Dessine le réseau de points dans la fenetre
      */
     public void dessinerReseau(){
         for(int i = 0 ; i < this.couleurs.length ; i++) {
@@ -186,11 +200,11 @@ public class Reseaux {
     }
 
     /**
-     * Méthode pathIsPossible
+     * Détermine si un chemin est possible entre deux points
      *
-     * @param p1 un paramètre
-     * @param p2 un paramètre
-     * @return le retour
+     * @param p1 un point
+     * @param p2 un point
+     * @return true si un chemin est possible
      */
     public boolean pathIsPossible(Point p1, Point p2){
         boolean resultat = false;
@@ -220,10 +234,10 @@ public class Reseaux {
     }
 
     /**
-     * Méthode isAnIsolatedPoint
+     * Détermine si un point donné est isolé (forme un composant de taille 1)
      *
-     * @param p1 un paramètre
-     * @return le retour
+     * @param p1 un point
+     * @return true si le point est isolé, false sinon
      */
     public boolean isAnIsolatedPoint(Point p1){
         boolean resultat = false;
@@ -248,10 +262,16 @@ public class Reseaux {
     }
 
     /**
-     * Méthode isASimpleBlackArc
+     * Détermine si la liste de points donnée forme bien un arc noir <br>
+     * C'est à dire :
+     * <ul>
+     *  <li> Tous les points de la liste sont noirs
+     *  <li> Il y a deux extrêmités, qui ont chacun seulement 1 voisin dans la liste de point
+     *  <li> Les autres points de la liste ont chacun 2 voisins
+     * </ul>
      *
-     * @param points un paramètre
-     * @return le retour
+     * @param points la liste de point
+     * @return true si les points forment un arc, false sinon
      */
     public boolean isASimpleBlackArc(Point[] points){
         boolean resultat = false;
@@ -287,10 +307,11 @@ public class Reseaux {
     }
 
     /**
-     * Méthode isASimpleBlackCurve
+     * Détermine si la liste de points donnée forme bien une courbe. <br>
+     * C'est à dire que les points de la liste ont chacun 2 voisins dans la liste de points.
      *
-     * @param points un paramètre
-     * @return le retour
+     * @param points la liste de points
+     * @return true si les points forment une courbe, false sinon
      */
     public boolean isASimpleBlackCurve(Point[] points){
         boolean resultat = false;
@@ -321,6 +342,12 @@ public class Reseaux {
         return resultat;
     }
 
+    /**
+     * Détermine si un point noir fait partie d'une bordure avec un des composants blancs
+     *
+     * @param p un point
+     * @return vrai si le point est sur une bordure, false sinon
+     */
     public boolean isABorderPoint(Point p){
         boolean resultat = false;
         Point [] voisins = this.voisins(p);
