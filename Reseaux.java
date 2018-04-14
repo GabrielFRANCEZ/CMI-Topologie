@@ -90,6 +90,21 @@ public class Reseaux {
                 points.add(new Point(x,y));
             }
         }
+        Point[] liste_points = new Point[points.size()];
+        return this.getComposants(points.toArray(liste_points));
+    }
+
+    /**
+     * Calcule la liste des composants des points donnés.
+     *
+     * @param liste_points liste des points
+     * @return la liste des composants des points donnés
+     */
+    public ArrayList<ArrayList<Point>> getComposants (Point[] liste_points) {
+        ArrayList<Point> points = new ArrayList<Point>(liste_points.length);
+        for (int i = 0; i < liste_points.length; i++) {
+            points.add(liste_points[i]);
+        }
         ArrayList<ArrayList<Point>> comps = new ArrayList<ArrayList<Point>>();
         while (points.size() > 0) {
             ArrayList<Point> composant = new ArrayList<Point> ();
