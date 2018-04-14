@@ -13,6 +13,7 @@ Un point est soit noir, soit blanc. Il sont reliés par des adjacences.
 
 Fonctionnalitées implémentés :
 - [x] point noir ou blanc
+  - [x] filtre de couleur
 - [x] fond blanc de l'image
 - [x] adjacence (4 ou 8)
   - [x] m-adjacence
@@ -26,6 +27,8 @@ Fonctionnalitées implémentés :
   - [x] déterminer si un chemin est possible
   - [ ] reconnaitre un chemin
 - [x] composants
+  - [x] dans la matrice
+  - [x] dans une liste de points
 - [x] arc
   - [x] reconnaitre si des points donnés forment un arc
 - [x] courbe
