@@ -79,6 +79,23 @@ public class Reseaux {
     }
 
     /**
+     * Filtre les points donnés selon la couleur donnée
+     *
+     * @param points les points
+     * @param couleur la couleur souhaitée
+     * @return les points dans la liste, qui sont de la couleur souhaitée
+     */
+    public Point[] filterColor (Point[] points, boolean couleur) {
+        ArrayList<Point> pointsFiltres = new ArrayList<Point>();
+        for (int i = 0; i < points.length; i++) {
+            if (this.getCouleur(points[i]) == couleur) {
+                pointsFiltres.add(points[i]);
+            }
+        }
+        return pointsFiltres.toArray(new Point[pointsFiltres.size()]);
+    }
+
+    /**
      * Calcule la liste des composants du réseau.
      *
      * @return la liste des composants du réseau
