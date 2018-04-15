@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 import info.graphics.Point;
 
@@ -60,6 +61,12 @@ public class Main {
             }
             System.out.println();
         }
+        reseau.dessinerReseau();
+        Scanner sc = new Scanner(System.in);
+        sc.next(); // mets en pause
+        //reseau.effacerReseau(); // pas besoin
+        reseau.setCouleur(p4, reseau.BLANC);
+        reseau.setCouleur(new Point(3,1), reseau.NOIR);
         reseau.dessinerReseau();
     }
 

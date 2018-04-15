@@ -212,7 +212,8 @@ public class Reseaux {
     }
 
     /**
-     * Dessine le réseau de points dans la fenetre
+     * Dessine le réseau de points dans la fenetre. <br>
+     * Si le réseau est déjà dessiné, il le corrige.
      */
     public void dessinerReseau(){
         for(int i = 0 ; i < this.couleurs.length ; i++) {
@@ -224,11 +225,17 @@ public class Reseaux {
                     Point p2 = voisins[k];
                     if (this.adjacence(p1, p2)) { 
                         this.fenetre.dessinerLigne(p1,p2);
+                    } else {
+                        this.fenetre.effacerLigne(p1,p2);
                     }
                 }
             }
         }
 
+    }
+
+    public void effacerReseau() {
+        this.fenetre.effacerFenetre();
     }
 
     /**
