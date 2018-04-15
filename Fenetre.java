@@ -33,27 +33,17 @@ public class Fenetre {
        this.fenetre.open(); 
     }
 
-    // Méthodes pour convertir de coordonnées de grille à coordonnées de dessin.
-    // Attention : code à changer si les coordonnées ne sont pas indépendantes
-
     /**
-     * Convertit le numéro de colonne en abscisse de la fenêtre
+     * Convertit un point de la grille en point de la fenêtre
      *
-     * @param x le numéro de colonne (commençant à 0)
-     * @return l'abscisse dans la fenêtre
+     * @param p un point de la grille
+     * @return un point de la fenêtre
      */
-    public static int dessinX (int x) {
-        return x*DIMENSION_CASE + MARGE;
-    }
-
-    /**
-     * Convertit le numéro de ligne en ordonnée de la fenêtre
-     *
-     * @param y le numéro de liigne
-     * @return l'ordonnée dans la fenêtre
-     */
-    public static int dessinY (int y) {
-        return y*DIMENSION_CASE + MARGE;
+    public static Point gridToWindow (Point p) {
+        return new Point(
+            p.getX() * DIMENSION_CASE + MARGE,
+            p.getY() * DIMENSION_CASE + MARGE
+        );
     }
     
     // Méthodes de dessin, prennent tous des coordonnées de grilles.
@@ -69,11 +59,10 @@ public class Fenetre {
         final boolean estPlein = estNoir;
         final int diametre = DIMENSION_CASE/2;
         final int rayon = diametre/2;
-        int x = this.dessinX(p.getX());
-        int y = this.dessinY(p.getY());
+        Point c = Fenetre.gridToWindow(p);
         // x et y sont les coordonnées du centre du cercle
         // drawEllipse fonctionne en encadrant l'éllipse dans un rectangle
-        this.fenetre.drawEllipse(x-rayon, y-rayon, estPlein, Color.black, diametre, diametre);
+        this.fenetre.drawEllipse(c.getX()-rayon, c.getY()-rayon, estPlein, Color.black, diametre, diametre);
     }
 
     /**
@@ -84,10 +73,12 @@ public class Fenetre {
      * @param p2 un point
      */
     public void dessinerLigne(Point p1, Point p2) {
+        Point c1 = Fenetre.gridToWindow(p1);
+        Point c2 = Fenetre.gridToWindow(p2);
         this.fenetre.drawLine(
             Color.black,
-            this.dessinX(p1.getX()), this.dessinY(p1.getY()),
-            this.dessinX(p2.getX()), this.dessinY(p2.getY())
+            c1.getX(), c1.getY(),
+            c2.getX(), c2.getY()
         );
     }
 }
