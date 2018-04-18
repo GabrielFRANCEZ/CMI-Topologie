@@ -16,8 +16,7 @@ public class Main {
         Point p8 = new Point(2,3);
         Point p9 = new Point(2,4);
         Point p10 = new Point(3,4);
-        
-        
+
         Point[] liste1 = {p1,p2,p3};
         Point[] liste2 = {p4,p2,p3};
         Point[] liste3 = {p4,p2,p3,p5};
@@ -47,7 +46,7 @@ public class Main {
         System.out.println("arc "+reseau.isASimpleBlackArc(liste3));
         System.out.println("arc "+reseau.isASimpleBlackArc(liste4));
         System.out.println("courbe " + reseau.isASimpleBlackCurve(liste4));
-        
+
         System.out.println("point non border "+reseau.isABorderPoint(p2));
         System.out.println("point non border "+reseau.isABorderPoint(p7));
 
@@ -62,12 +61,18 @@ public class Main {
             System.out.println();
         }
         reseau.dessinerReseau();
-        Scanner sc = new Scanner(System.in);
-        sc.next(); // mets en pause
-        //reseau.effacerReseau(); // pas besoin
-        reseau.setCouleur(p4, reseau.BLANC);
-        reseau.setCouleur(new Point(3,1), reseau.NOIR);
+
+        try {Thread.sleep(1000);} // 1000 ms
+        catch (InterruptedException ie) { }
+
+        reseau.shrinking();
         reseau.dessinerReseau();
+
+        //reseau.effacerReseau(); // pas besoin
+        //reseau.setCouleur(p4, reseau.BLANC);
+        //reseau.setCouleur(new Point(3,1), reseau.NOIR);
+        //reseau.dessinerReseau();
+        System.out.println("fin");
     }
 
 }

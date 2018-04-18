@@ -193,7 +193,7 @@ public class Reseaux {
             };
         return voisins;
     }
-    
+
     /**
      * Donne les voisins d'un point
      *
@@ -395,10 +395,77 @@ public class Reseaux {
                 if(this.getCouleur(voisins[i]) == BLANC){
                     resultat = true;
                 }
-
             }
-
         }
         return resultat;
+    }
+
+    /**
+     * Donne les composants de la matrice composés de points noirs.
+     *
+     * @return un tableau de composants, qui contiennent des points
+     */
+    public Point[][] getComposantsNoirs(){
+        ArrayList<ArrayList<Point>> composants = getComposants();
+
+        for(int i = 0; i < composants.size(); i++){
+            Point premier = composants.get(i).get(0);
+            if (this.getCouleur(premier) == BLANC) {
+                composants.remove(i);
+            }
+        }
+
+        Point[][] composantsNoir = new Point[composants.size()][];
+
+        for (int i = 0; i < composants.size(); i++) {
+            ArrayList<Point> comp = composants.get(i);
+            composantsNoir[i] = comp.toArray(new Point[comp.size()]);
+        }
+
+        return composantsNoir;
+    }
+
+    /**
+     * Détermine si un point noir est simple. <br>
+     * C'est à dire que donner une couleur blanche à ce point n'altère pas la topologie de la matrice.
+     *
+     * @param p un point
+     */
+    public boolean estSimple(Point p){
+        boolean res = false;
+        if (this.getCouleur(p)){
+            int a = getComposants().size();
+            this.setCouleur(p, BLANC);
+            if (a==getComposants().size()){
+                res = true;
+            }
+            this.setCouleur(p, NOIR);
+        }
+        return res;
+    }
+
+    /**
+     * Enlève tous les points simple de la matrice.
+     */
+    public void shrinking(){
+        Point[][] composantsNoirs= getComposantsNoirs();
+        for (int i=0; i<composantsNoirs.length;i++) {
+            Point[] comp = composantsNoirs[i];
+            int nbPointsCourbe = comp.length;
+            // On veut une courbe ou un point isolé
+            while( !isASimpleBlackCurve(comp) && nbPointsCourbe != 1 ) {
+                for(int j = 0; j < comp.length; j++){
+                    Point p = comp[j];
+                    if(estSimple(p)) {
+                        this.setCouleur(p, BLANC);
+                        nbPointsCourbe--;
+                        // temporaire, pour visualiser ce qui ce passe
+                        this.dessinerReseau();
+                        try {Thread.sleep(500);} // 500 ms
+                        catch (InterruptedException ie) { }
+                    }
+                }
+            }
+        }
     }
 }
