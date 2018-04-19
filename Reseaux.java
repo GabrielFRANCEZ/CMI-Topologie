@@ -467,7 +467,7 @@ public class Reseaux {
                         pointsEnTrop.add(p);
                     }
                 }
-                for (int j = 0; j < pointsEnTrop.size(); j++) {
+                for (int j = 0; j < pointsEnTrop.size() && nbPointsCourbe > 1; j++) {
                     this.setCouleur(pointsEnTrop.get(j), BLANC);
                     nbPointsCourbe--;
                     // temporaire, pour visualiser ce qui ce passe

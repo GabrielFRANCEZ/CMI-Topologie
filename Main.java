@@ -16,6 +16,7 @@ public class Main {
         Point p8 = new Point(2,3);
         Point p9 = new Point(2,4);
         Point p10 = new Point(3,4);
+        Point p11 = new Point(2,1);
 
         Point[] liste1 = {p1,p2,p3};
         Point[] liste2 = {p4,p2,p3};
@@ -32,6 +33,7 @@ public class Main {
         reseau.setCouleur(p8, reseau.NOIR);
         reseau.setCouleur(p9, reseau.NOIR);
         reseau.setCouleur(p10, reseau.NOIR);
+        reseau.setCouleur(p11, reseau.NOIR);
 
         reseau.pathIsPossible(p1,p2);
         reseau.pathIsPossible(p2,p3);
