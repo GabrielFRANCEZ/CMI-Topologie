@@ -96,7 +96,7 @@ public class Reseaux {
     }
 
     /**
-     * Calcule la liste des composants du réseau.
+     * Calcule la liste des composants du réseau. Background proche inclus.
      *
      * @return la liste des composants du réseau
      */
@@ -106,6 +106,14 @@ public class Reseaux {
             for (int y = 0; y < this.couleurs[0].length; y++) {
                 points.add(new Point(x,y));
             }
+        }
+        for (int x = 0; x < this.couleurs.length; x++) {
+            points.add(new Point(x,-1));
+            points.add(new Point(x, this.couleurs[0].length));
+        }
+        for (int y = 0; y < this.couleurs[0].length; y++) {
+            points.add(new Point(-1, y));
+            points.add(new Point(this.couleurs[0].length, y));
         }
         Point[] liste_points = new Point[points.size()];
         return this.getComposants(points.toArray(liste_points));
@@ -127,12 +135,10 @@ public class Reseaux {
             ArrayList<Point> composant = new ArrayList<Point> ();
             composant.add(points.remove(0));
             for (int i = 0; i < composant.size(); i++) {
-                Point pointComposant = composant.get(i);
-                int x1 = pointComposant.getX(); int y1 = pointComposant.getY();
+                Point pointComposant = composant.get(i);;
                 for (int j = 0; j < points.size(); j++) {
                     Point point = points.get(j);
-                    int x2 = point.getX(); int y2 = point.getY();
-                    if (this.couleurs[x1][y1] == this.couleurs[x2][y2] && this.adjacence(pointComposant, point)) {
+                    if (this.getCouleur(point) == this.getCouleur(pointComposant) && this.adjacence(pointComposant, point)) {
                         composant.add(point);
                         points.remove(j);
                         j--;
@@ -452,19 +458,24 @@ public class Reseaux {
         for (int i=0; i<composantsNoirs.length;i++) {
             Point[] comp = composantsNoirs[i];
             int nbPointsCourbe = comp.length;
+            ArrayList<Point> pointsEnTrop = new ArrayList<Point>();
             // On veut une courbe ou un point isolé
             while( !isASimpleBlackCurve(comp) && nbPointsCourbe != 1 ) {
                 for(int j = 0; j < comp.length; j++){
                     Point p = comp[j];
                     if(estSimple(p)) {
-                        this.setCouleur(p, BLANC);
-                        nbPointsCourbe--;
-                        // temporaire, pour visualiser ce qui ce passe
-                        this.dessinerReseau();
-                        try {Thread.sleep(500);} // 500 ms
-                        catch (InterruptedException ie) { }
+                        pointsEnTrop.add(p);
                     }
                 }
+                for (int j = 0; j < pointsEnTrop.size(); j++) {
+                    this.setCouleur(pointsEnTrop.get(j), BLANC);
+                    nbPointsCourbe--;
+                    // temporaire, pour visualiser ce qui ce passe
+                    this.dessinerReseau();
+                    try {Thread.sleep(500);} // 500 ms
+                    catch (InterruptedException ie) { }
+                }
+                pointsEnTrop.clear();
             }
         }
     }
