@@ -458,15 +458,24 @@ public class Reseaux {
         for (int i=0; i<composantsNoirs.length;i++) {
             Point[] comp = composantsNoirs[i];
             int nbPointsCourbe = comp.length;
-            ArrayList<Point> pointsEnTrop = new ArrayList<Point>();
+            //ArrayList<Point> pointsEnTrop = new ArrayList<Point>();
             // On veut une courbe ou un point isolé
-            while( !isASimpleBlackCurve(comp) && nbPointsCourbe != 1 ) {
+            boolean changement = true;
+            while( changement ) {
+                changement = false;
                 for(int j = 0; j < comp.length; j++){
                     Point p = comp[j];
                     if(estSimple(p)) {
-                        pointsEnTrop.add(p);
+                        //pointsEnTrop.add(p);
+                        this.setCouleur(p, BLANC);
+                        changement = true;
+                        // temporaire, pour visualiser ce qui ce passe
+                        this.dessinerReseau();
+                        try {Thread.sleep(500);} // 500 ms
+                        catch (InterruptedException ie) { }
                     }
                 }
+                /*
                 for (int j = 0; j < pointsEnTrop.size() && nbPointsCourbe > 1; j++) {
                     this.setCouleur(pointsEnTrop.get(j), BLANC);
                     nbPointsCourbe--;
@@ -475,7 +484,8 @@ public class Reseaux {
                     try {Thread.sleep(500);} // 500 ms
                     catch (InterruptedException ie) { }
                 }
-                pointsEnTrop.clear();
+                */
+                //pointsEnTrop.clear();
             }
         }
     }
