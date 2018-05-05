@@ -489,4 +489,33 @@ public class Reseaux {
             }
         }
     }
+
+    /**
+     * Enlève tous les points simple de la matrice.
+     */
+    public void shrinking_liste_traitement(){
+        Point[][] composantsNoirs = getComposantsNoirs();
+        ArrayList<Point> liste_traitement = new ArrayList<Point>();
+        ArrayList<Point> points_traites = new ArrayList<Point>();
+        do {
+            for (int i = 0; i < composantsNoirs.length; i++) {
+                for (int j = 0; j < composantsNoirs[i].length; j++) {
+                    Point p = composantsNoirs[i][j];
+                    if (this.getCouleur(p) == NOIR && this.isABorderPoint(p) && !points_traites.contains(p) && !liste_traitement.contains(p)) {
+                        liste_traitement.add(p);
+                    }
+                }
+            }
+            Point p = liste_traitement.remove(0);
+            points_traites.add(p);
+            if(estSimple(p)) {
+                this.setCouleur(p, BLANC);
+
+                // temporaire, pour visualiser ce qui ce passe
+                this.dessinerReseau();
+                try {Thread.sleep(500);} // 500 ms
+                catch (InterruptedException ie) { }
+            }
+        } while (liste_traitement.size() > 0);
+    }
 }

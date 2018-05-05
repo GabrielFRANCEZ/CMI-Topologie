@@ -67,7 +67,7 @@ public class Main {
         try {Thread.sleep(1000);} // 1000 ms
         catch (InterruptedException ie) { }
 
-        reseau.shrinking();
+        reseau.shrinking_liste_traitement();
         reseau.dessinerReseau();
 
         //reseau.effacerReseau(); // pas besoin
