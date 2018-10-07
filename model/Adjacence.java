@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Liste les types d'ajacences possibles en 2D
  */

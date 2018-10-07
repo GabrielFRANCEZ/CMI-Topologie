@@ -1,0 +1,12 @@
+package window.operations;
+
+public enum OperationType {
+  NOOP,
+  SHOW_COMPONENTS,
+  DRAW_PATH,
+  SHOW_ISOLATED_POINTS,
+  DRAW_BLACK_ARC,
+  DRAW_BLACK_CURVE,
+  SHOW_BORDER_POINTS,
+  SHOW_SIMPLE_POINTS
+}

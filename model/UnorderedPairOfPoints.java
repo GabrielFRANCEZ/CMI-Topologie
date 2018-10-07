@@ -1,3 +1,5 @@
+package model;
+
 import info.graphics.Point;
 
 public class UnorderedPairOfPoints {

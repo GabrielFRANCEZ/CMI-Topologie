@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Canvas height="200.0" width="200.0" />
+      <VBox>
+         <children>
+            <HBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" text="%components.black" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox maxWidth="1.7976931348623157E308">
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="%conf.adj4">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="adj_black" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="%conf.adj8" toggleGroup="$adj_black" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL">
+                     <HBox.margin>
+                        <Insets left="2.0" right="2.0" />
+                     </HBox.margin>
+                  </Separator>
+                  <VBox maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" text="%components.white" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets bottom="3.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <RadioButton mnemonicParsing="false" text="%conf.adj4">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="adj_white" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton mnemonicParsing="false" text="%conf.adj8" toggleGroup="$adj_white" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </HBox>
+            <Separator>
+               <VBox.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </VBox.margin>
+            </Separator>
+            <VBox maxWidth="1.7976931348623157E308">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="%show.components">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="operations" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <HBox>
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="%components.black">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="%components.white" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </VBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </VBox.margin>
+            </Separator>
+            <VBox>
+               <children>
+                  <Label text="%test" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.pathIsPossible" toggleGroup="$operations" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isAnIsolatedPoint" toggleGroup="$operations" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isASimpleBlackArc" toggleGroup="$operations" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isASimpleBlackCurve" toggleGroup="$operations" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isABorderPoint" toggleGroup="$operations" />
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isSimple" toggleGroup="$operations" />
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="2.0" top="3.0" />
+               </VBox.margin>
+            </Separator>
+            <VBox>
+               <children>
+                  <Label text="%filter" />
+                  <Button mnemonicParsing="false" text="%filter.shrinking" />
+               </children>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets right="2.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

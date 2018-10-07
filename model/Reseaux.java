@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import info.graphics.Line;
 import info.graphics.Window;

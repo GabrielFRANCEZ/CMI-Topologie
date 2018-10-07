@@ -5,7 +5,7 @@ import info.graphics.Point;
 public class Main {
 
     public static void main (String[] args) {
-        Reseaux reseau = new Reseaux(5,5, Adjacence.ADJ4, Adjacence.ADJ8);
+        Reseaux reseau = new Reseaux(5,5, Adjacence.ADJ8, Adjacence.ADJ4);
         Point p1 = new Point(0, 0);
         Point p2 = new Point(3, 3);
         Point p3 = new Point(2, 2);
@@ -17,6 +17,13 @@ public class Main {
         Point p9 = new Point(2,4);
         Point p10 = new Point(3,4);
         Point p11 = new Point(2,1);
+        
+        //  0   1   2   3   4
+        //0 p1  OO  OO  OO  OO
+        //1 OO  OO  p11 OO  OO
+        //2 OO  OO  p3  p5  p6
+        //3 OO  OO  p8  p2  p7
+        //4 OO  OO  p9  p10 p4
 
         Point[] liste1 = {p1,p2,p3};
         Point[] liste2 = {p4,p2,p3};
@@ -58,7 +65,7 @@ public class Main {
             System.out.println("Composant " + i);
             for (int j = 0; j < comp.size(); j++) {
                 Point coords = comp.get(j);
-                System.out.println(coords);
+                System.out.print(coords + " ");
             }
             System.out.println();
         }
@@ -67,7 +74,7 @@ public class Main {
         try {Thread.sleep(1000);} // 1000 ms
         catch (InterruptedException ie) { }
 
-        reseau.shrinking_liste_traitement();
+        //reseau.shrinking_liste_traitement();
         reseau.dessinerReseau();
 
         //reseau.effacerReseau(); // pas besoin
