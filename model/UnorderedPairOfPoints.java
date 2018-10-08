@@ -1,6 +1,6 @@
 package model;
 
-import info.graphics.Point;
+import model.Point;
 
 public class UnorderedPairOfPoints {
     private Point p1;

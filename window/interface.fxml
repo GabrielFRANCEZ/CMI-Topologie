@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1">
+<HBox xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.TopologyController">
    <children>
-      <Canvas height="200.0" width="200.0" />
+      <Canvas fx:id="canvas" height="200.0" width="200.0" />
       <VBox>
          <children>
             <HBox>
@@ -80,7 +80,7 @@
             </Separator>
             <VBox maxWidth="1.7976931348623157E308">
                <children>
-                  <ToggleButton mnemonicParsing="false" text="%show.components">
+                  <ToggleButton fx:id="toggleComponents" mnemonicParsing="false" onAction="#onToggleChange" text="%show.components">
                      <toggleGroup>
                         <ToggleGroup fx:id="operations" />
                      </toggleGroup>
@@ -111,12 +111,12 @@
             <VBox>
                <children>
                   <Label text="%test" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.pathIsPossible" toggleGroup="$operations" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isAnIsolatedPoint" toggleGroup="$operations" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isASimpleBlackArc" toggleGroup="$operations" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isASimpleBlackCurve" toggleGroup="$operations" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isABorderPoint" toggleGroup="$operations" />
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%test.isSimple" toggleGroup="$operations" />
+                  <ToggleButton fx:id="togglePath" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.pathIsPossible" toggleGroup="$operations" />
+                  <ToggleButton fx:id="toggleIsolated" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.isAnIsolatedPoint" toggleGroup="$operations" />
+                  <ToggleButton fx:id="toggleArc" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.isASimpleBlackArc" toggleGroup="$operations" />
+                  <ToggleButton fx:id="toggleCurve" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.isASimpleBlackCurve" toggleGroup="$operations" />
+                  <ToggleButton fx:id="toggleBorder" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.isABorderPoint" toggleGroup="$operations" />
+                  <ToggleButton fx:id="toggleSimple" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%test.isSimple" toggleGroup="$operations" />
                </children>
             </VBox>
             <Separator prefWidth="200.0">
@@ -127,7 +127,7 @@
             <VBox>
                <children>
                   <Label text="%filter" />
-                  <Button mnemonicParsing="false" text="%filter.shrinking" />
+                  <Button mnemonicParsing="false" onAction="#onShrinking" text="%filter.shrinking" />
                </children>
             </VBox>
          </children>

@@ -1,10 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import info.graphics.Line;
-import info.graphics.Window;
-import info.graphics.Color;
-import info.graphics.Point;
+import model.Point;
 
 /**
  * Représente un réseau discret de points. <br>
@@ -23,8 +20,8 @@ public class Reseaux {
     /** point noir == true; point blanc == false */
     public boolean[][] couleurs;
 
-    /** fenetre de dessin, facilite les conversions de coordonnées */
-    public Fenetre fenetre;
+    ///** fenetre de dessin, facilite les conversions de coordonnées */
+    //public Fenetre fenetre;
 
     /**
      * Reseaux Constructor
@@ -34,21 +31,32 @@ public class Reseaux {
      * @param madj adjacence entre deux points noirs
      * @param nadj adjacence entre deux points blancs, ou entre un point noir et un point blanc
      */
-    public Reseaux(int nbLignes, int nbColonnes, Adjacence madj, Adjacence nadj) {
+    public Reseaux(int nbLignes, int nbColonnes, Adjacence madj, Adjacence nadj) throws IllegalArgumentException {
+        if (nbLignes <= 0 || nbColonnes <= 0) {
+          throw new IllegalArgumentException("nbLinges et nbColonnes doivent être positifs et non nuls");
+        }
         // matrice de taille fixe pour l'instant
         this.couleurs = new boolean[nbLignes][nbColonnes];
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
-                couleurs[i][j] = BLANC;
+                this.couleurs[i][j] = BLANC;
             }
         }
 
-        this.fenetre = new Fenetre(nbLignes, nbColonnes, "Discrete Topology");
+        //this.fenetre = new Fenetre(nbLignes, nbColonnes, "Discrete Topology");
 
         this.n_adjacence = nadj;
         this.m_adjacence = madj;
 
-        this.fenetre.afficher();
+        //this.fenetre.afficher();
+    }
+
+    public int getNbLignes() {
+        return this.couleurs.length;
+    }
+
+    public int getNbColonnes () {
+        return this.couleurs[0].length;
     }
 
     /**
@@ -219,32 +227,33 @@ public class Reseaux {
         return voisins.toArray(new Point[voisins.size()]);
     }
 
-    /**
-     * Dessine le réseau de points dans la fenetre. <br>
-     * Si le réseau est déjà dessiné, il le corrige.
-     */
-    public void dessinerReseau(){
-        for(int i = 0 ; i < this.couleurs.length ; i++) {
-            for(int j = 0 ; j < this.couleurs[i].length ; j++){
-                Point p1 = new Point(i,j);
-                this.fenetre.dessinerPoint(p1, this.couleurs[i][j]);
-                Point[] voisins = this.voisins8(p1);
-                for (int k = 0; k < voisins.length; k++) {
-                    Point p2 = voisins[k];
-                    if (this.adjacence(p1, p2)) { 
-                        this.fenetre.dessinerLigne(p1,p2);
-                    } else {
-                        this.fenetre.effacerLigne(p1,p2);
-                    }
-                }
-            }
-        }
-
-    }
-
-    public void effacerReseau() {
-        this.fenetre.effacerFenetre();
-    }
+    //
+    // /**
+    //  * Dessine le réseau de points dans la fenetre. <br>
+    //  * Si le réseau est déjà dessiné, il le corrige.
+    //  */
+    // public void dessinerReseau(){
+    //     for(int i = 0 ; i < this.couleurs.length ; i++) {
+    //         for(int j = 0 ; j < this.couleurs[i].length ; j++){
+    //             Point p1 = new Point(i,j);
+    //             this.fenetre.dessinerPoint(p1, this.couleurs[i][j]);
+    //             Point[] voisins = this.voisins8(p1);
+    //             for (int k = 0; k < voisins.length; k++) {
+    //                 Point p2 = voisins[k];
+    //                 if (this.adjacence(p1, p2)) {
+    //                     this.fenetre.dessinerLigne(p1,p2);
+    //                 } else {
+    //                     this.fenetre.effacerLigne(p1,p2);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //
+    // }
+    //
+    // public void effacerReseau() {
+    //     this.fenetre.effacerFenetre();
+    // }
 
     /**
      * Détermine si un chemin est possible entre deux points
@@ -472,9 +481,9 @@ public class Reseaux {
                         this.setCouleur(p, BLANC);
                         changement = true;
                         // temporaire, pour visualiser ce qui ce passe
-                        this.dessinerReseau();
-                        try {Thread.sleep(500);} // 500 ms
-                        catch (InterruptedException ie) { }
+                        //this.dessinerReseau();
+                        //try {Thread.sleep(500);} // 500 ms
+                        //catch (InterruptedException ie) { }
                     }
                 }
                 /*
@@ -514,9 +523,9 @@ public class Reseaux {
                 this.setCouleur(p, BLANC);
 
                 // temporaire, pour visualiser ce qui ce passe
-                this.dessinerReseau();
-                try {Thread.sleep(500);} // 500 ms
-                catch (InterruptedException ie) { }
+                //this.dessinerReseau();
+                //try {Thread.sleep(500);} // 500 ms
+                //catch (InterruptedException ie) { }
             }
         } while (liste_traitement.size() > 0);
     }

@@ -1,7 +1,7 @@
 package window;
 
 import java.util.ResourceBundle;
-import info.util.javafx.FXUtil;
+//import info.util.javafx.FXUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ import java.util.Locale;
  * <li>Invocation de la méthode {@link #stop stop} pour libérer les ressources utilisées par l'application
  * </ol>
  */
-public class PaintFxApplication extends Application {
+public class TopologyApplication extends Application {
 
     /* (non-Javadoc)
      * @see javafx.application.Application#start(javafx.stage.Stage)
@@ -36,7 +36,9 @@ public class PaintFxApplication extends Application {
 
             Parent root = loader.load();
 
-            FXUtil.associate(loader.getController(), primaryStage);
+            //FXUtil.associate(loader.getController(), primaryStage);
+            TopologyController controller = (TopologyController) loader.getController();
+
 
             primaryStage.setScene(new Scene(root));
 

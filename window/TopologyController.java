@@ -13,8 +13,21 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+// Elements présents dans paint_fx.fxml
+import javafx.stage.Stage;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.canvas.Canvas;
+
 // Modèle de données
-import Reseaux;
+import model.Reseaux;
+import model.Adjacence;
+import model.Point;
+import window.operations.OperationType;
+import window.operations.Operation;
+
+// dessin dans le canvas
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Classe contrôleur pour l'interface décrite dans le document <b>interface.fxml</b>.
@@ -22,8 +35,18 @@ import Reseaux;
  * Cette classe contient principalement les méthodes appelées en réaction aux événements utilisateur.
  * Une instance de cette classe est créée automatiquement chaque fois que le document <b>interface.fxml</b> est chargé.
  */
-public class InterfaceController {
+public class TopologyController {
   @FXML private Stage stage;
+  @FXML private ToggleButton toggleComponents;
+  @FXML private ToggleButton togglePath;
+  @FXML private ToggleButton toggleIsolated;
+  @FXML private ToggleButton toggleArc;
+  @FXML private ToggleButton toggleCurve;
+  @FXML private ToggleButton toggleBorder;
+  @FXML private ToggleButton toggleSimple;
+  @FXML private Canvas canvas;
+
+  private ResourceBundle bundle;
 
   /** Modèle de la Grille affichée */
   private Reseaux model;
@@ -31,14 +54,78 @@ public class InterfaceController {
   /** Type d'opération sur la grille */
   private OperationType operationType;
   /** Opération sur la grille en cours (bouton de souris droit enfoncé) */
-  private DrawOperation operation;
+  private Operation operation;
 
   /** Constructeur */
-  public PaintFxController() {
+  public TopologyController() {
       this.bundle = ResourceBundle.getBundle("interface");
-      this.model = new Reseaux(1,1);
-      this.operationType = noop;
+      this.model = new Reseaux(1,1, Adjacence.ADJ4, Adjacence.ADJ8);
+      //this.operationType = OperationType.NOOP;
       this.operation = null;
+  }
+
+  private void displayHighlight () {
+    if (this.operation != null) {
+
+    }
+  }
+
+  private void drawPoint (Point p, boolean isBlack) {
+    GraphicsContext gc = this.canvas.getGraphicsContext2D();
+    int x = p.getX();
+    int y = p.getY();
+    if (isBlack) {
+      gc.setFill(Color.BLACK);
+      //gc.fillOval(
+    } else {
+      gc.setStroke(Color.BLACK);
+    }
+  }
+
+  private void drawLine (Point p1, Point p2) {
+    GraphicsContext gc = this.canvas.getGraphicsContext2D();
+    gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+  }
+
+  private void displayGrid () {
+    for(int i = 0 ; i < this.model.getNbLignes() ; i++) {
+      for(int j = 0 ; j < this.model.getNbColonnes() ; j++){
+        Point p1 = new Point(i,j);
+        this.drawPoint(p1, this.model.getCouleur(p1));
+        Point[] voisins = this.model.voisins8(p1);
+        for (int k = 0; k < voisins.length; k++) {
+          Point p2 = voisins[k];
+          if (this.model.adjacence(p1, p2)) {
+            this.drawLine(p1,p2);
+          }
+        }
+      }
+    }
+  }
+
+  private void displayModel () {
+    this.canvas.getGraphicsContext2D()
+        .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+    this.displayHighlight();
+    this.displayGrid();
+  }
+
+  @FXML
+  public void onToggleChange () {
+    if (this.toggleComponents.isSelected());
+    else if (this.toggleArc.isSelected());
+    else if (this.togglePath.isSelected());
+    else if (this.toggleCurve.isSelected());
+    else if (this.toggleBorder.isSelected());
+    else if (this.toggleSimple.isSelected());
+    else if (this.toggleIsolated.isSelected());
+    else;
+
+  }
+
+  @FXML
+  public void onShrinking () {
+    System.out.println("onShrinking");
   }
 
  }

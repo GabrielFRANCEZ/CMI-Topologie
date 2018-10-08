@@ -1,10 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import info.graphics.Point;
+import window.TopologyApplication;
 
 public class Main {
 
     public static void main (String[] args) {
+        TopologyApplication.launch();
+        /*
         Reseaux reseau = new Reseaux(5,5, Adjacence.ADJ8, Adjacence.ADJ4);
         Point p1 = new Point(0, 0);
         Point p2 = new Point(3, 3);
@@ -17,7 +19,7 @@ public class Main {
         Point p9 = new Point(2,4);
         Point p10 = new Point(3,4);
         Point p11 = new Point(2,1);
-        
+
         //  0   1   2   3   4
         //0 p1  OO  OO  OO  OO
         //1 OO  OO  p11 OO  OO
@@ -82,6 +84,8 @@ public class Main {
         //reseau.setCouleur(new Point(3,1), reseau.NOIR);
         //reseau.dessinerReseau();
         System.out.println("fin");
+        */
+
     }
 
 }
