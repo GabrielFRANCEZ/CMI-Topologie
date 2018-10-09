@@ -1,4 +1,6 @@
 
+package window;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -7,6 +9,7 @@ import model.Reseaux;
 import model.Point;
 import model.Adjacence;
 import java.util.Map;
+import java.util.HashMap;
 
 public class GridManager {
   public final static int DIMENSION_CASE = 60;
@@ -42,7 +45,7 @@ public class GridManager {
     GraphicsContext gc = this.canvas.getGraphicsContext2D();
     final int diametre = DIMENSION_CASE/2;
     final int rayon = diametre/2;
-    Point c = GridManager.gridToWindow(p);
+    Point c = this.gridToWindow(p);
     if (isBlack) {
       gc.setFill(Color.BLACK);
       gc.fillOval(c.getX()-rayon, c.getY()-rayon, c.getX()+rayon, c.getY()+rayon);
@@ -58,8 +61,10 @@ public class GridManager {
   }
 
   public void displayGrid (Map<Point, Paint> colorMask) {
+    this.canvas.getGraphicsContext2D()
+                .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     for (Map.Entry<Point, Paint> entry : colorMask.entrySet()) {
-      Point p = GridManager.gridToWindow(entry.getKey());
+      Point p = this.gridToWindow(entry.getKey());
       GraphicsContext gc = this.canvas.getGraphicsContext2D();
       gc.setFill(entry.getValue());
       gc.fillRect(p.getX(), p.getY(), DIMENSION_CASE, DIMENSION_CASE);
@@ -79,10 +84,7 @@ public class GridManager {
     }
   }
 
-//  private void displayModel () {
-//    this.canvas.getGraphicsContext2D()
-//         .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-//     this.displayHighlight();
-//     this.displayGrid();
-//  }
+  public void displayGrid () {
+    this.displayGrid(new HashMap<Point, Paint> ());
+  }
 }

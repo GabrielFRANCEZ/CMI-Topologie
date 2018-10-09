@@ -49,7 +49,7 @@ public class TopologyController {
   private ResourceBundle bundle;
 
   /** Modèle de la Grille affichée */
-  private Reseaux model;
+  private GridManager gridManager;
 
   /** Type d'opération sur la grille */
   private OperationType operationType;
@@ -59,55 +59,12 @@ public class TopologyController {
   /** Constructeur */
   public TopologyController() {
       this.bundle = ResourceBundle.getBundle("interface");
-      this.model = new Reseaux(1,1, Adjacence.ADJ4, Adjacence.ADJ8);
+      System.out.println("1");
+      //this.gridManager = new GridManager (this.canvas, 1, 1, Adjacence.ADJ4, Adjacence.ADJ8);
+      System.out.println("2");
       //this.operationType = OperationType.NOOP;
+      //this.gridManager.displayGrid();
       this.operation = null;
-  }
-
-  private void displayHighlight () {
-    if (this.operation != null) {
-
-    }
-  }
-
-  private void drawPoint (Point p, boolean isBlack) {
-    GraphicsContext gc = this.canvas.getGraphicsContext2D();
-    int x = p.getX();
-    int y = p.getY();
-    if (isBlack) {
-      gc.setFill(Color.BLACK);
-      //gc.fillOval(
-    } else {
-      gc.setStroke(Color.BLACK);
-    }
-  }
-
-  private void drawLine (Point p1, Point p2) {
-    GraphicsContext gc = this.canvas.getGraphicsContext2D();
-    gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-  }
-
-  private void displayGrid () {
-    for(int i = 0 ; i < this.model.getNbLignes() ; i++) {
-      for(int j = 0 ; j < this.model.getNbColonnes() ; j++){
-        Point p1 = new Point(i,j);
-        this.drawPoint(p1, this.model.getCouleur(p1));
-        Point[] voisins = this.model.voisins8(p1);
-        for (int k = 0; k < voisins.length; k++) {
-          Point p2 = voisins[k];
-          if (this.model.adjacence(p1, p2)) {
-            this.drawLine(p1,p2);
-          }
-        }
-      }
-    }
-  }
-
-  private void displayModel () {
-    this.canvas.getGraphicsContext2D()
-        .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-    this.displayHighlight();
-    this.displayGrid();
   }
 
   @FXML
