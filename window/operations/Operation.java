@@ -1,4 +1,5 @@
 package window.operations;
+
 import model.Point;
 import model.Reseaux;
 import javafx.scene.paint.Paint;

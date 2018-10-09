@@ -1,5 +1,11 @@
+package window.operations;
 
 import java.util.ArrayList;
+import model.Point;
+import model.Reseaux;
+import java.util.Map;
+import javafx.canvas.paint.Paint;
+
 
 public abstract class OperationOnPoints implements Operation {
   protected ArrayList<Point> points;

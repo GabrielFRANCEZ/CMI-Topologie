@@ -1,9 +1,15 @@
 package window.operations;
 
-import window.operations.Operation;
+import model.Point;
 import java.util.HashMap;
+import model.Reseaux;
+import java.util.Map;
+import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
+import java.util.ArrayList;
 
-class ShowComponents extends OperationOnAllPoints {
+public class ShowComponents implements Operation {
+
   public void processPoint (Point p) {
     return;
   }
@@ -14,14 +20,13 @@ class ShowComponents extends OperationOnAllPoints {
     for (int i = 0; i < composants.size(); i++) {
       ArrayList<Point> comp = composants.get(i);
       for (int j = 0; j < comp.size(); j++) {
-        Point p = new Point (i,j);
-        colorMap.put(p, Color.BLUE);.
+        Point p = comp.get(j);
+        if (p.getX() >= 0 && p.getY() >= 0 && p.getX() < r.getNbLignes() && p.getY() < r.getNbColonnes()) {
+          colorMap.put(p, Color.RED);
+        }
+
       }
     }
     return colorMap;
-  }
-
-  public Map<Point, Paint> makeColorMask (Reseaux r) {
-    return null;
   }
 }

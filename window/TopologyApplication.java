@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.Locale;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
 /**
  * Point d'entrée de l'application.
@@ -38,6 +40,17 @@ public class TopologyApplication extends Application {
 
             //FXUtil.associate(loader.getController(), primaryStage);
             TopologyController controller = (TopologyController) loader.getController();
+
+            controller.setStage(primaryStage);
+
+            primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
+            {
+                @Override
+                public void handle(WindowEvent window)
+                {
+                    controller.onWindowShown();
+                }
+            });
 
 
             primaryStage.setScene(new Scene(root));

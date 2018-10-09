@@ -59,12 +59,31 @@ public class TopologyController {
   /** Constructeur */
   public TopologyController() {
       this.bundle = ResourceBundle.getBundle("interface");
-      System.out.println("1");
       //this.gridManager = new GridManager (this.canvas, 1, 1, Adjacence.ADJ4, Adjacence.ADJ8);
-      System.out.println("2");
       //this.operationType = OperationType.NOOP;
       //this.gridManager.displayGrid();
-      this.operation = null;
+      this.operation = new window.operations.ShowBorders ();
+  }
+
+  public void setStage (Stage stage) {
+      this.stage = stage;
+  }
+
+  public void onWindowShown () {
+      this.gridManager = new GridManager (this.canvas, 5, 5, Adjacence.ADJ4, Adjacence.ADJ8);
+      Reseaux r = this.gridManager.getReseaux();
+      this.gridManager.displayGrid(this.operation.makeColorMask(r));
+  }
+
+  @FXML
+  public void onMousePressed (MouseEvent event) {
+    if (event.getButton() == MouseButton.PRIMARY) {
+      int x = (int) event.getX();
+      int y = (int) event.getY();
+      this.gridManager.mousedown_primary(x,y);
+    }
+    Reseaux r = this.gridManager.getReseaux();
+    this.gridManager.displayGrid(this.operation.makeColorMask(r));
   }
 
   @FXML
@@ -82,7 +101,9 @@ public class TopologyController {
 
   @FXML
   public void onShrinking () {
-    System.out.println("onShrinking");
+    this.gridManager.shrinking();
+    Reseaux r = this.gridManager.getReseaux();
+    this.gridManager.displayGrid(this.operation.makeColorMask(r));
   }
 
  }

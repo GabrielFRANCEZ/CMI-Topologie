@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.TopologyController">
+<HBox xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="window.TopologyController">
    <children>
-      <Canvas fx:id="canvas" height="200.0" width="200.0" />
+      <Canvas fx:id="canvas" height="500.0" onMousePressed="#onMousePressed" width="500.0" />
       <VBox>
          <children>
             <HBox>
@@ -80,7 +80,7 @@
             </Separator>
             <VBox maxWidth="1.7976931348623157E308">
                <children>
-                  <ToggleButton fx:id="toggleComponents" mnemonicParsing="false" onAction="#onToggleChange" text="%show.components">
+                  <ToggleButton fx:id="toggleComponents" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onToggleChange" text="%show.components">
                      <toggleGroup>
                         <ToggleGroup fx:id="operations" />
                      </toggleGroup>

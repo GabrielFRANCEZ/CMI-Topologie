@@ -23,8 +23,13 @@ public class GridManager {
     this.canvas = canvas;
     this.reseaux = new Reseaux(nbLines, nbColumns, adj_black, adj_white);
     final int width = (nbLines-1)*DIMENSION_CASE + 2*MARGE;
-    final int height = (nbColumns*-1)*DIMENSION_CASE + 2*MARGE;
-    this.canvas.resize(width, height);
+    final int height = (nbColumns-1)*DIMENSION_CASE + 2*MARGE;
+    this.canvas.setWidth(width);
+    this.canvas.setHeight(height);
+  }
+
+  public Reseaux getReseaux () {
+    return this.reseaux; // TODO Copie
   }
 
   public static Point gridToWindow (Point p) {
@@ -48,15 +53,18 @@ public class GridManager {
     Point c = this.gridToWindow(p);
     if (isBlack) {
       gc.setFill(Color.BLACK);
-      gc.fillOval(c.getX()-rayon, c.getY()-rayon, c.getX()+rayon, c.getY()+rayon);
+      gc.fillOval(c.getX()-rayon, c.getY()-rayon, diametre, diametre);
     } else {
       gc.setStroke(Color.BLACK);
-      gc.strokeOval(c.getX()-rayon, c.getY()-rayon, c.getX()+rayon, c.getY()+rayon);
+      gc.strokeOval(c.getX()-rayon, c.getY()-rayon, diametre, diametre);
     }
   }
 
   private void drawLine (Point p1, Point p2) {
     GraphicsContext gc = this.canvas.getGraphicsContext2D();
+    p1 = this.gridToWindow(p1);
+    p2 = this.gridToWindow(p2);
+    gc.setStroke(Color.BLACK);
     gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
   }
 
@@ -64,7 +72,11 @@ public class GridManager {
     this.canvas.getGraphicsContext2D()
                 .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     for (Map.Entry<Point, Paint> entry : colorMask.entrySet()) {
-      Point p = this.gridToWindow(entry.getKey());
+      Point p = entry.getKey();
+      //if (p.getX() > 0 && p.getY() > 0) continue;
+      System.out.println(p.toString());
+      p = this.gridToWindow(p);
+      p = new Point (p.getX() - DIMENSION_CASE/2, p.getY() - DIMENSION_CASE/2);
       GraphicsContext gc = this.canvas.getGraphicsContext2D();
       gc.setFill(entry.getValue());
       gc.fillRect(p.getX(), p.getY(), DIMENSION_CASE, DIMENSION_CASE);
@@ -82,6 +94,15 @@ public class GridManager {
         }
       }
     }
+  }
+
+  public void shrinking () {
+    this.reseaux.shrinking();
+  }
+
+  public void mousedown_primary(int x, int y) {
+    Point p = this.windowToGrid(new Point(x + DIMENSION_CASE/2,y + DIMENSION_CASE/2));
+    this.reseaux.setCouleur(p, !this.reseaux.getCouleur(p));
   }
 
   public void displayGrid () {
