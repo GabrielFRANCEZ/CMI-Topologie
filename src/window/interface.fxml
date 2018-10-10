@@ -28,7 +28,7 @@
                         </Label>
                         <HBox maxWidth="1.7976931348623157E308">
                            <children>
-                              <RadioButton mnemonicParsing="false" text="%conf.adj4">
+                              <RadioButton fx:id="radioBlackComponentAdj4" mnemonicParsing="false" onAction="#onRadioAdjCompChange" text="%conf.adj4">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -36,7 +36,7 @@
                                     <ToggleGroup fx:id="adj_black" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="%conf.adj8" toggleGroup="$adj_black" />
+                              <RadioButton fx:id="radioBlackComponentAdj8" mnemonicParsing="false" onAction="#onRadioAdjCompChange" text="%conf.adj8" toggleGroup="$adj_black" />
                            </children>
                         </HBox>
                      </children>
@@ -55,7 +55,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <RadioButton mnemonicParsing="false" text="%conf.adj4">
+                              <RadioButton fx:id="radioWhiteComponentAdj4" mnemonicParsing="false" onAction="#onRadioAdjCompChange" text="%conf.adj4">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -63,7 +63,7 @@
                                     <ToggleGroup fx:id="adj_white" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="%conf.adj8" toggleGroup="$adj_white" />
+                              <RadioButton fx:id="radioWhiteComponentAdj8" mnemonicParsing="false" onAction="#onRadioAdjCompChange" text="%conf.adj8" toggleGroup="$adj_white" />
                            </children>
                         </HBox>
                      </children>

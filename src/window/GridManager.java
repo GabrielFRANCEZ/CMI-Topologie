@@ -34,6 +34,14 @@ public class GridManager {
   public Reseaux getReseaux () {
     return this.reseaux; // TODO Copie
   }
+  
+  public void setM_adjacence (Adjacence adj) {
+    this.reseaux.setM_adjacence(adj);
+  }
+  
+  public void setN_adjacence (Adjacence adj) {
+    this.reseaux.setN_adjacence(adj);
+  }
 
   public Point gridToWindow (Point p) {
     return new Point (

@@ -59,6 +59,22 @@ public class Reseaux {
         return this.couleurs[0].length;
     }
 
+    public Adjacence getM_adjacence() {
+      return m_adjacence;
+    }
+
+    public void setM_adjacence(Adjacence m_adjacence) {
+      this.m_adjacence = m_adjacence;
+    }
+
+    public Adjacence getN_adjacence() {
+      return n_adjacence;
+    }
+
+    public void setN_adjacence(Adjacence n_adjacence) {
+      this.n_adjacence = n_adjacence;
+    }
+
     /**
      * Donne la couleur du point dans la matrice (NOIR ou BLANC)
      *

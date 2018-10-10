@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 // Elements présents dans paint_fx.fxml
 import javafx.stage.Stage;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.canvas.Canvas;
 
@@ -27,7 +28,6 @@ import window.operations.*;
  * Une instance de cette classe est créée automatiquement chaque fois que le document <b>interface.fxml</b> est chargé.
  */
 public class TopologyController {
-  @FXML private Stage stage;
   @FXML private ToggleButton toggleComponents;
   @FXML private ToggleButton togglePath;
   @FXML private ToggleButton toggleIsolated;
@@ -35,6 +35,11 @@ public class TopologyController {
   @FXML private ToggleButton toggleCurve;
   @FXML private ToggleButton toggleBorder;
   @FXML private ToggleButton toggleSimple;
+  @FXML private RadioButton radioBlackComponentAdj4;
+  @FXML private RadioButton radioBlackComponentAdj8;
+  @FXML private RadioButton radioWhiteComponentAdj4;
+  @FXML private RadioButton radioWhiteComponentAdj8;
+
   @FXML private Canvas canvas;
 
   /** Modèle de la Grille affichée */
@@ -49,13 +54,12 @@ public class TopologyController {
       this.operation = new NoopOperation ();
   }
 
-  public void setStage (Stage stage) {
-      this.stage = stage;
-  }
-
-  public void onWindowShown () {
+  @FXML
+  public void initialize () {
       this.gridManager = new GridManager (this.canvas, 5, 5, Adjacence.ADJ4, Adjacence.ADJ8);
       this.gridManager.displayGrid();
+      this.radioBlackComponentAdj4.setSelected(true);
+      this.radioWhiteComponentAdj8.setSelected(true);
   }
 
   @FXML
@@ -69,7 +73,7 @@ public class TopologyController {
   }
 
   @FXML
-  public void onToggleChange () {
+  private void onToggleChange () {
     Operation op;
     if (this.toggleComponents.isSelected()) op = new ShowComponents ();
     else if (this.toggleArc.isSelected()) op = new HighlightBlackArc ();
@@ -81,6 +85,19 @@ public class TopologyController {
     else op = new NoopOperation ();
     this.operation = op;
     this.gridManager.setOperation(this.operation);
+    this.gridManager.displayGrid();
+  }
+  
+  @FXML
+  private void onRadioAdjCompChange () {
+    Adjacence adjBlack;
+    Adjacence adjWhite;
+    if (this.radioBlackComponentAdj4.isSelected()) adjBlack = Adjacence.ADJ4;
+    else adjBlack = Adjacence.ADJ8;
+    if (this.radioWhiteComponentAdj4.isSelected()) adjWhite = Adjacence.ADJ4;
+    else adjWhite = Adjacence.ADJ8;
+    this.gridManager.setM_adjacence(adjBlack);
+    this.gridManager.setN_adjacence(adjWhite);
     this.gridManager.displayGrid();
   }
 

@@ -38,20 +38,8 @@ public class TopologyApplication extends Application {
             Parent root = loader.load();
 
             //FXUtil.associate(loader.getController(), primaryStage);
-            TopologyController controller = (TopologyController) loader.getController();
-
-            controller.setStage(primaryStage);
-
-            primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>()
-            {
-                @Override
-                public void handle(WindowEvent window)
-                {
-                    controller.onWindowShown();
-                }
-            });
-
-
+            //TopologyController controller = (TopologyController) loader.getController();
+            
             primaryStage.setScene(new Scene(root));
 
             // ajouter un logo pour la fenetre
