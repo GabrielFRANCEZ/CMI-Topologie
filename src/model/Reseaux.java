@@ -468,7 +468,7 @@ public class Reseaux {
         Point[][] composantsNoirs= getComposantsNoirs();
         for (int i=0; i<composantsNoirs.length;i++) {
             Point[] comp = composantsNoirs[i];
-            int nbPointsCourbe = comp.length;
+            //int nbPointsCourbe = comp.length;
             //ArrayList<Point> pointsEnTrop = new ArrayList<Point>();
             // On veut une courbe ou un point isolé
             boolean changement = true;

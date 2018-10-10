@@ -3,10 +3,14 @@ package window.operations;
 import java.util.Map;
 import java.util.HashMap;
 import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import model.Point;
 import model.Reseaux;
 
 public abstract class OperationOnAllPoints implements Operation {
+  
+  public static final Color COLOR_FALSE = Color.RED;
+  public static final Color COLOR_TRUE = Color.GREEN;
 
   public void processPoint (Point p) {
     return;

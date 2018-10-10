@@ -6,10 +6,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import model.Reseaux;
+import window.operations.Operation;
+import window.operations.NoopOperation;
 import model.Point;
 import model.Adjacence;
 import java.util.Map;
-import java.util.HashMap;
 
 public class GridManager {
   public final static int DIMENSION_CASE = 60;
@@ -18,6 +19,7 @@ public class GridManager {
 
   private Canvas canvas;
   private Reseaux reseaux;
+  private Operation operation;
 
   public GridManager (Canvas canvas, int nbLines, int nbColumns, Adjacence adj_black, Adjacence adj_white) {
     this.canvas = canvas;
@@ -26,20 +28,21 @@ public class GridManager {
     final int height = (nbColumns-1)*DIMENSION_CASE + 2*MARGE;
     this.canvas.setWidth(width);
     this.canvas.setHeight(height);
+    this.operation = new NoopOperation ();
   }
 
   public Reseaux getReseaux () {
     return this.reseaux; // TODO Copie
   }
 
-  public static Point gridToWindow (Point p) {
+  public Point gridToWindow (Point p) {
     return new Point (
       p.getX() * DIMENSION_CASE + MARGE,
       p.getY() * DIMENSION_CASE + MARGE
     );
   }
 
-    public static Point windowToGrid (Point p) {
+    public Point windowToGrid (Point p) {
       return new Point (
         (p.getX() - MARGE) / DIMENSION_CASE,
         (p.getY() - MARGE) / DIMENSION_CASE
@@ -106,6 +109,10 @@ public class GridManager {
   }
 
   public void displayGrid () {
-    this.displayGrid(new HashMap<Point, Paint> ());
+    this.displayGrid(this.operation.makeColorMask(this.reseaux));
+  }
+
+  public void setOperation(Operation operation) {
+    this.operation = operation;
   }
 }

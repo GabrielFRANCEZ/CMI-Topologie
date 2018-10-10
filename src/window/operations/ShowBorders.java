@@ -1,16 +1,16 @@
 package window.operations;
 
 import javafx.scene.paint.Paint;
-import javafx.scene.paint.Color;
 import model.Reseaux;
 import model.Point;
 
 public class ShowBorders extends OperationOnAllPoints {
+  @Override
   public Paint computePoint (Reseaux r, Point p) {
     if (r.isABorderPoint(p)) {
-      return Color.GREEN;
+      return OperationOnAllPoints.COLOR_TRUE;
     } else {
-      return Color.RED;
+      return OperationOnAllPoints.COLOR_FALSE;
     }
   }
 }
