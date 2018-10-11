@@ -17,16 +17,24 @@ public class ShowComponents implements Operation {
   public Map<Point, Paint> makeColorMask (Reseaux r) {
     HashMap<Point, Paint> colorMap = new HashMap<Point, Paint> ();
     ArrayList<ArrayList<Point>> composants = r.getComposants();
+    Color[] palette = this.makeRainbowPalette(composants.size());
     for (int i = 0; i < composants.size(); i++) {
       ArrayList<Point> comp = composants.get(i);
-      for (int j = 0; j < comp.size(); j++) {
-        Point p = comp.get(j);
-        if (p.getX() >= 0 && p.getY() >= 0 && p.getX() < r.getNbLignes() && p.getY() < r.getNbColonnes()) {
-          colorMap.put(p, Color.RED);
+      for (Point p : comp) {
+        if (r.isInGrid(p)) {
+          colorMap.put(p, palette[i]);
         }
-
       }
     }
     return colorMap;
+  }
+
+  private Color[] makeRainbowPalette (int nbColors) {
+    Color[] palette = new Color [nbColors];
+    double baseHue = 360/nbColors;
+    for (int i = 0; i < nbColors; i++) {
+      palette[i] = Color.hsb((i+1) * baseHue, 0.5, 0.5);
+    }
+    return palette;
   }
 }

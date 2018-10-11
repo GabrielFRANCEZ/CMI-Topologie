@@ -8,8 +8,8 @@ import model.Point;
  * Propose des méthodes pour manipuler les conceptes topologiques liés.
  */
 public class Reseaux {
-    public final boolean BLANC = false;
-    public final boolean NOIR = true;
+    public static final boolean BLANC = false;
+    public static final boolean NOIR = true;
 
     /** Adjacence entre deux points noirs */
     private Adjacence m_adjacence;
@@ -49,6 +49,11 @@ public class Reseaux {
         this.m_adjacence = madj;
 
         //this.fenetre.afficher();
+    }
+
+    public boolean isInGrid (Point p) {
+      return p.getX() >= 0 && p.getY() >= 0
+          && p.getX() < this.getNbLignes() && p.getY() < this.getNbColonnes();
     }
 
     public int getNbLignes() {
