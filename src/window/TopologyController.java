@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 // Elements présents dans paint_fx.fxml
 import javafx.stage.Stage;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.canvas.Canvas;
@@ -39,6 +40,7 @@ public class TopologyController {
   @FXML private RadioButton radioBlackComponentAdj8;
   @FXML private RadioButton radioWhiteComponentAdj4;
   @FXML private RadioButton radioWhiteComponentAdj8;
+  @FXML private CheckBox ckLinkBlackAndWhite;
 
   @FXML private Canvas canvas;
 
@@ -64,10 +66,13 @@ public class TopologyController {
 
   @FXML
   public void onMousePressed (MouseEvent event) {
+    int x = (int) event.getX();
+    int y = (int) event.getY();
     if (event.getButton() == MouseButton.PRIMARY) {
-      int x = (int) event.getX();
-      int y = (int) event.getY();
-      this.gridManager.mousedown_primary(x,y);
+      this.gridManager.mousePressed_primary(x,y);
+    }
+    else if (event.getButton() == MouseButton.SECONDARY) {
+      this.gridManager.mousePressed_secondary(x,y);
     }
     this.gridManager.displayGrid();
   }
@@ -98,6 +103,12 @@ public class TopologyController {
     else adjWhite = Adjacence.ADJ8;
     this.gridManager.setM_adjacence(adjBlack);
     this.gridManager.setN_adjacence(adjWhite);
+    this.gridManager.displayGrid();
+  }
+  
+  @FXML
+  private void onCheckboxLinkBlackAndWhiteChange () {
+    this.gridManager.setLinkBlackAndWhite(this.ckLinkBlackAndWhite.isSelected());
     this.gridManager.displayGrid();
   }
 

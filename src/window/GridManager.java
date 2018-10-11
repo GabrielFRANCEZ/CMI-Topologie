@@ -20,6 +20,7 @@ public class GridManager {
   private Canvas canvas;
   private Reseaux reseaux;
   private Operation operation;
+  private boolean linkBlackAndWhite;
 
   public GridManager (Canvas canvas, int nbLines, int nbColumns, Adjacence adj_black, Adjacence adj_white) {
     this.canvas = canvas;
@@ -41,6 +42,10 @@ public class GridManager {
   
   public void setN_adjacence (Adjacence adj) {
     this.reseaux.setN_adjacence(adj);
+  }
+  
+  public void setLinkBlackAndWhite (boolean linkBlackAndWhite) {
+    this.linkBlackAndWhite = linkBlackAndWhite;
   }
 
   public Point gridToWindow (Point p) {
@@ -79,7 +84,7 @@ public class GridManager {
     gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
   }
 
-  public void displayGrid (Map<Point, Paint> colorMask) {
+  public void displayGrid (Map<Point, Paint> colorMask, boolean linkBlackAndWhite) {
     this.canvas.getGraphicsContext2D()
                 .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     for (Map.Entry<Point, Paint> entry : colorMask.entrySet()) {
@@ -99,7 +104,8 @@ public class GridManager {
         Point[] voisins = this.reseaux.voisins8(p1);
         for (int k = 0; k < voisins.length; k++) {
           Point p2 = voisins[k];
-          if (this.reseaux.adjacence(p1, p2)) {
+          if (this.reseaux.adjacence(p1, p2)
+              && (this.linkBlackAndWhite || this.reseaux.getCouleur(p1) == this.reseaux.getCouleur(p2))) {
             this.drawLine(p1,p2);
           }
         }
@@ -111,13 +117,18 @@ public class GridManager {
     this.reseaux.shrinking();
   }
 
-  public void mousedown_primary(int x, int y) {
+  public void mousePressed_primary(int x, int y) {
     Point p = this.windowToGrid(new Point(x + DIMENSION_CASE/2,y + DIMENSION_CASE/2));
     this.reseaux.setCouleur(p, !this.reseaux.getCouleur(p));
   }
+  
+  public void mousePressed_secondary (int x, int y) {
+    Point p = this.windowToGrid(new Point(x + DIMENSION_CASE/2,y + DIMENSION_CASE/2));
+    this.operation.processPoint(p);
+  }
 
   public void displayGrid () {
-    this.displayGrid(this.operation.makeColorMask(this.reseaux));
+    this.displayGrid(this.operation.makeColorMask(this.reseaux), this.linkBlackAndWhite);
   }
 
   public void setOperation(Operation operation) {
