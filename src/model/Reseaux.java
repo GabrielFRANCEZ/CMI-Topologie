@@ -467,9 +467,24 @@ public class Reseaux {
     public boolean estSimple(Point p){
         boolean res = false;
         if (this.getCouleur(p)){
-            int a = getComposants().size();
+            int nbCompBlanc = 0;
+            int nbCompNoir = 0;
+            for (ArrayList<Point> comp : this.getComposants()) {
+              if (this.getCouleur(comp.get(0)) == BLANC)
+                nbCompBlanc++;
+              else
+                nbCompNoir++;
+            }
             this.setCouleur(p, BLANC);
-            if (a==getComposants().size()){
+            int nbNewCompBlanc = 0;
+            int nbNewCompNoir = 0;
+            for (ArrayList<Point> comp : this.getComposants()) {
+              if (this.getCouleur(comp.get(0)) == BLANC)
+                nbNewCompBlanc++;
+              else
+                nbNewCompNoir++;
+            }
+            if (nbCompNoir == nbNewCompNoir && nbCompBlanc == nbNewCompBlanc){
                 res = true;
             }
             this.setCouleur(p, NOIR);
