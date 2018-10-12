@@ -18,8 +18,8 @@ public abstract class OperationOnAllPoints implements Operation {
 
   public Map<Point, Paint> makeColorMask (Reseaux r) {
     Map<Point, Paint> colorMask = new HashMap<Point, Paint> ();
-    for (int i = 0; i < r.getNbLignes(); i++) {
-      for (int j = 0; j < r.getNbColonnes(); j++) {
+    for (int i = 0; i < r.getSizeX(); i++) {
+      for (int j = 0; j < r.getSizeY(); j++) {
         Point p = new Point (i,j);
         colorMask.put(p, this.computePoint(r, p));
       }

@@ -2,6 +2,8 @@ package window.operations;
 
 import model.Point;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import model.Reseaux;
 import java.util.Map;
 import javafx.scene.paint.Paint;
@@ -27,16 +29,15 @@ public class ShowComponents implements Operation {
 
   public Map<Point, Paint> makeColorMask (Reseaux r) {
     HashMap<Point, Paint> colorMap = new HashMap<Point, Paint> ();
-    ArrayList<ArrayList<Point>> composants = r.getComposants();
-    for (int i = 0; i < composants.size(); i++) {
-      ArrayList<Point> comp = composants.get(i);
-      if (r.getCouleur(comp.get(0)) == Reseaux.BLANC && !this.showWhiteComponents) {
-        composants.remove(i);
-        i--;
+    ArrayList<ArrayList<Point>> composants = r.computeComponents();
+    Iterator<ArrayList<Point>> it = composants.iterator();
+    while (it.hasNext()) {
+      ArrayList<Point> comp = it.next();
+      if (r.getColor(comp.get(0)) == Reseaux.BLANC && !this.showWhiteComponents) {
+        it.remove();
       }
-      else if (r.getCouleur(comp.get(0)) == Reseaux.NOIR && !this.showBlackComponents) {
-        composants.remove(i);
-        i--;
+      else if (r.getColor(comp.get(0)) == Reseaux.NOIR && !this.showBlackComponents) {
+        it.remove();
       }
     }
     if (composants.size() == 0) return colorMap;
@@ -46,9 +47,7 @@ public class ShowComponents implements Operation {
       for (Point p : comp) {
         if (r.isInGrid(p)) {
           colorMap.put(p, palette[i]);
-        }
-      }
-    }
+    }}}
     return colorMap;
   }
 

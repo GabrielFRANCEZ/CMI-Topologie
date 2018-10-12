@@ -43,7 +43,11 @@ public class GridManager {
   public void setN_adjacence (Adjacence adj) {
     this.reseaux.setN_adjacence(adj);
   }
-  
+
+  public void setOperation(Operation operation) {
+    this.operation = operation;
+  }
+
   public void setLinkBlackAndWhite (boolean linkBlackAndWhite) {
     this.linkBlackAndWhite = linkBlackAndWhite;
   }
@@ -83,34 +87,44 @@ public class GridManager {
     gc.setStroke(Color.BLACK);
     gc.strokeLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
   }
+  
+  private void drawAdjacencies (Point p1) {
+    Point[] pointsAround = this.reseaux.pointsAround(p1);
+    for (Point p2 : pointsAround) {
+      if (this.reseaux.adjacence(p1, p2)
+          && (this.linkBlackAndWhite || this.reseaux.getColor(p1) == this.reseaux.getColor(p2))) {
+        this.drawLine(p1,p2);
+    }}
+  }
+  
+  private void drawColorMask (Point p, Paint paint) {
+    p = this.gridToWindow(p);
+    p = new Point (p.getX() - DIMENSION_CASE/2, p.getY() - DIMENSION_CASE/2);
+    GraphicsContext gc = this.canvas.getGraphicsContext2D();
+    gc.setFill(paint);
+    gc.fillRect(p.getX(), p.getY(), DIMENSION_CASE, DIMENSION_CASE);
+  }
+
+  public void displayGrid () {
+    this.displayGrid(this.operation.makeColorMask(this.reseaux), this.linkBlackAndWhite);
+  }
 
   public void displayGrid (Map<Point, Paint> colorMask, boolean linkBlackAndWhite) {
+    // effacer tout
     this.canvas.getGraphicsContext2D()
                 .clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-    for (Map.Entry<Point, Paint> entry : colorMask.entrySet()) {
-      Point p = entry.getKey();
-      //if (p.getX() > 0 && p.getY() > 0) continue;
-      System.out.println(p.toString());
-      p = this.gridToWindow(p);
-      p = new Point (p.getX() - DIMENSION_CASE/2, p.getY() - DIMENSION_CASE/2);
-      GraphicsContext gc = this.canvas.getGraphicsContext2D();
-      gc.setFill(entry.getValue());
-      gc.fillRect(p.getX(), p.getY(), DIMENSION_CASE, DIMENSION_CASE);
-    }
-    for(int i = 0 ; i < this.reseaux.getNbLignes() ; i++) {
-      for(int j = 0 ; j < this.reseaux.getNbColonnes() ; j++){
+    
+    // dessiner le fond de couleur (si il y en a un)
+    for (Map.Entry<Point, Paint> entry : colorMask.entrySet())
+      this.drawColorMask(entry.getKey(), entry.getValue());
+    
+    // dessiner la grille
+    for(int i = 0 ; i < this.reseaux.getSizeX() ; i++) {
+      for(int j = 0 ; j < this.reseaux.getSizeY() ; j++){
         Point p1 = new Point(i,j);
-        this.drawPoint(p1, this.reseaux.getCouleur(p1));
-        Point[] voisins = this.reseaux.voisins8(p1);
-        for (int k = 0; k < voisins.length; k++) {
-          Point p2 = voisins[k];
-          if (this.reseaux.adjacence(p1, p2)
-              && (this.linkBlackAndWhite || this.reseaux.getCouleur(p1) == this.reseaux.getCouleur(p2))) {
-            this.drawLine(p1,p2);
-          }
-        }
-      }
-    }
+        this.drawPoint(p1, this.reseaux.getColor(p1));
+        this.drawAdjacencies(p1);
+    }}
   }
 
   public void shrinking () {
@@ -119,19 +133,11 @@ public class GridManager {
 
   public void mousePressed_primary(int x, int y) {
     Point p = this.windowToGrid(new Point(x + DIMENSION_CASE/2,y + DIMENSION_CASE/2));
-    this.reseaux.setCouleur(p, !this.reseaux.getCouleur(p));
+    this.reseaux.setCouleur(p, !this.reseaux.getColor(p));
   }
   
   public void mousePressed_secondary (int x, int y) {
     Point p = this.windowToGrid(new Point(x + DIMENSION_CASE/2,y + DIMENSION_CASE/2));
     this.operation.processPoint(p);
-  }
-
-  public void displayGrid () {
-    this.displayGrid(this.operation.makeColorMask(this.reseaux), this.linkBlackAndWhite);
-  }
-
-  public void setOperation(Operation operation) {
-    this.operation = operation;
   }
 }
