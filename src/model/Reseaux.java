@@ -397,9 +397,9 @@ public class Reseaux {
      * @return true si le point est isolé, false sinon
      */
     public boolean isAnIsolatedPoint (Point p){
-      boolean res = false;
+      boolean res = true;
       for (Point pn : this.neighbors(p))
-        res = res || this.getColor(pn) == NOIR;
+        res = res && this.getColor(pn) == BLANC;
       return res;
     }
 
