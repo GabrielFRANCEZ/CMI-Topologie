@@ -11,14 +11,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 // Elements présents dans paint_fx.fxml
-import javafx.stage.Stage;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.canvas.Canvas;
 
 // Modèle de données
-import model.Reseaux;
 import model.Adjacence;
 import window.operations.*;
 
@@ -29,6 +27,9 @@ import window.operations.*;
  * Une instance de cette classe est créée automatiquement chaque fois que le document <b>interface.fxml</b> est chargé.
  */
 public class TopologyController {
+  
+  @FXML private CheckBox ckShBComp;
+  @FXML private CheckBox ckShWComp;
   @FXML private ToggleButton toggleComponents;
   @FXML private ToggleButton togglePath;
   @FXML private ToggleButton toggleIsolated;
@@ -41,6 +42,7 @@ public class TopologyController {
   @FXML private RadioButton radioWhiteComponentAdj4;
   @FXML private RadioButton radioWhiteComponentAdj8;
   @FXML private CheckBox ckLinkBlackAndWhite;
+  
 
   @FXML private Canvas canvas;
 
@@ -88,6 +90,12 @@ public class TopologyController {
     else if (this.toggleSimple.isSelected()) op = new ShowSimplePoints ();
     else if (this.toggleIsolated.isSelected()) op = new ShowIsolatedPoints ();
     else op = new NoopOperation ();
+    
+    if (op instanceof ShowComponents) {
+      ShowComponents sc = (ShowComponents) op;
+      sc.setShowBlackComponents(this.ckShBComp.isSelected());
+      sc.setShowWhiteComponents(this.ckShWComp.isSelected());
+    }
     this.operation = op;
     this.gridManager.setOperation(this.operation);
     this.gridManager.displayGrid();
@@ -110,6 +118,16 @@ public class TopologyController {
   private void onCheckboxLinkBlackAndWhiteChange () {
     this.gridManager.setLinkBlackAndWhite(this.ckLinkBlackAndWhite.isSelected());
     this.gridManager.displayGrid();
+  }
+  
+  @FXML
+  private void onCheckboxShownComponents () {
+    if (this.operation instanceof ShowComponents) {
+      ShowComponents op = (ShowComponents) this.operation;
+      op.setShowBlackComponents(this.ckShBComp.isSelected());
+      op.setShowWhiteComponents(this.ckShWComp.isSelected());
+      this.gridManager.displayGrid();
+    }
   }
 
   @FXML

@@ -93,12 +93,12 @@
                   </ToggleButton>
                   <HBox>
                      <children>
-                        <CheckBox mnemonicParsing="false" text="%components.black">
+                        <CheckBox fx:id="ckShBComp" mnemonicParsing="false" onAction="#onCheckboxShownComponents" text="%components.black">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </CheckBox>
-                        <CheckBox mnemonicParsing="false" text="%components.white" />
+                        <CheckBox fx:id="ckShWComp" mnemonicParsing="false" onAction="#onCheckboxShownComponents" text="%components.white" />
                      </children>
                      <VBox.margin>
                         <Insets left="10.0" top="5.0" />

@@ -9,6 +9,17 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 public class ShowComponents implements Operation {
+  
+  private boolean showBlackComponents;
+  private boolean showWhiteComponents;
+
+  public void setShowBlackComponents(boolean showBlackComponents) {
+    this.showBlackComponents = showBlackComponents;
+  }
+
+  public void setShowWhiteComponents(boolean showWhiteComponents) {
+    this.showWhiteComponents = showWhiteComponents;
+  }
 
   public void processPoint (Point p) {
     return;
@@ -17,6 +28,18 @@ public class ShowComponents implements Operation {
   public Map<Point, Paint> makeColorMask (Reseaux r) {
     HashMap<Point, Paint> colorMap = new HashMap<Point, Paint> ();
     ArrayList<ArrayList<Point>> composants = r.getComposants();
+    for (int i = 0; i < composants.size(); i++) {
+      ArrayList<Point> comp = composants.get(i);
+      if (r.getCouleur(comp.get(0)) == Reseaux.BLANC && !this.showWhiteComponents) {
+        composants.remove(i);
+        i--;
+      }
+      else if (r.getCouleur(comp.get(0)) == Reseaux.NOIR && !this.showBlackComponents) {
+        composants.remove(i);
+        i--;
+      }
+    }
+    if (composants.size() == 0) return colorMap;
     Color[] palette = this.makeRainbowPalette(composants.size());
     for (int i = 0; i < composants.size(); i++) {
       ArrayList<Point> comp = composants.get(i);
