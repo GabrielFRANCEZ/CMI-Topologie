@@ -133,18 +133,10 @@ public class Reseaux {
      */
     public ArrayList<ArrayList<Point>> getComposants () {
         ArrayList<Point> points = new ArrayList<Point> ();
-        for (int x = 0; x < this.couleurs.length; x++) {
-            for (int y = 0; y < this.couleurs[0].length; y++) {
+        for (int x = -1; x < this.couleurs.length + 1; x++) {
+            for (int y = -1; y < this.couleurs[0].length + 1; y++) {
                 points.add(new Point(x,y));
             }
-        }
-        for (int x = 0; x < this.couleurs.length; x++) {
-            points.add(new Point(x,-1));
-            points.add(new Point(x, this.couleurs[0].length));
-        }
-        for (int y = 0; y < this.couleurs[0].length; y++) {
-            points.add(new Point(-1, y));
-            points.add(new Point(this.couleurs[0].length, y));
         }
         Point[] liste_points = new Point[points.size()];
         return this.getComposants(points.toArray(liste_points));
