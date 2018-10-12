@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import model.Point;
 
 /**
@@ -20,9 +22,6 @@ public class Reseaux {
     /** point noir == true; point blanc == false */
     public boolean[][] couleurs;
 
-    ///** fenetre de dessin, facilite les conversions de coordonnées */
-    //public Fenetre fenetre;
-
     /**
      * Reseaux Constructor
      *
@@ -32,23 +31,18 @@ public class Reseaux {
      * @param nadj adjacence entre deux points blancs, ou entre un point noir et un point blanc
      */
     public Reseaux(int nbLignes, int nbColonnes, Adjacence madj, Adjacence nadj) throws IllegalArgumentException {
-        if (nbLignes <= 0 || nbColonnes <= 0) {
+        if (nbLignes <= 0 || nbColonnes <= 0)
           throw new IllegalArgumentException("nbLinges et nbColonnes doivent être positifs et non nuls");
-        }
+        
         // matrice de taille fixe pour l'instant
         this.couleurs = new boolean[nbLignes][nbColonnes];
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                this.couleurs[i][j] = BLANC;
-            }
-        }
-
-        //this.fenetre = new Fenetre(nbLignes, nbColonnes, "Discrete Topology");
-
         this.n_adjacence = nadj;
         this.m_adjacence = madj;
 
-        //this.fenetre.afficher();
+        // initialisation de la matrice
+        for (int i = 0; i < nbLignes; i++)
+            for (int j = 0; j < nbColonnes; j++)
+                this.couleurs[i][j] = BLANC;
     }
 
     public boolean isInGrid (Point p) {
@@ -81,19 +75,19 @@ public class Reseaux {
     }
 
     /**
-     * Donne la couleur du point dans la matrice (NOIR ou BLANC)
+     * Donne la couleur du point dans la matrice (NOIR ou BLANC). <br>
+     * Inclus le fond blanc entourant la grille.
      *
      * @param point coordonnées du point
      * @return la couleur du point (NOIR ou BLANC)
      */
     public boolean getCouleur (Point point) {
-        // Le "background" blanc
         int x = point.getX();
         int y = point.getY();
-        if (x < 0 || x >= this.couleurs.length
-        || y < 0 || y >= this.couleurs[0].length) { // [0] ?
-            return BLANC;
-        }
+        // Le "background" blanc
+        if (x < 0 || x >= this.getNbLignes()
+          ||y < 0 || y >= this.getNbColonnes() // [0] ?
+           ) return BLANC;
         return this.couleurs[x][y];
     }
 
@@ -118,11 +112,9 @@ public class Reseaux {
      */
     public Point[] filterColor (Point[] points, boolean couleur) {
         ArrayList<Point> pointsFiltres = new ArrayList<Point>();
-        for (int i = 0; i < points.length; i++) {
-            if (this.getCouleur(points[i]) == couleur) {
+        for (int i = 0; i < points.length; i++)
+            if (this.getCouleur(points[i]) == couleur)
                 pointsFiltres.add(points[i]);
-            }
-        }
         return pointsFiltres.toArray(new Point[pointsFiltres.size()]);
     }
 
@@ -131,15 +123,23 @@ public class Reseaux {
      *
      * @return la liste des composants du réseau
      */
+//    public ArrayList<ArrayList<Point>> getComposants () {
+//        ArrayList<Point> points = new ArrayList<Point> ();
+//        for (int x=(-1); x < this.couleurs.length + 1; x++)
+//            for (int y=(-1); y < this.couleurs[0].length + 1; y++)
+//                points.add(new Point(x,y));
+//        Point[] liste_points = new Point[points.size()];
+//        return this.getComposants(points.toArray(liste_points));
+//    }
+    
     public ArrayList<ArrayList<Point>> getComposants () {
-        ArrayList<Point> points = new ArrayList<Point> ();
-        for (int x = -1; x < this.couleurs.length + 1; x++) {
-            for (int y = -1; y < this.couleurs[0].length + 1; y++) {
-                points.add(new Point(x,y));
-            }
-        }
-        Point[] liste_points = new Point[points.size()];
-        return this.getComposants(points.toArray(liste_points));
+      int nbl = this.getNbLignes() + 2;
+      int nbc = this.getNbColonnes() + 2;
+      Point[] liste_points = new Point [nbl * nbc];
+      for (int x=(-1); x < nbl-1; x++)
+        for (int y=(-1); y < nbc-1; y++)
+          liste_points[(x+1)*nbl + (y+1)] = new Point(x,y);
+      return this.getComposants(liste_points);
     }
 
     /**
@@ -150,9 +150,8 @@ public class Reseaux {
      */
     public ArrayList<ArrayList<Point>> getComposants (Point[] liste_points) {
         ArrayList<Point> points = new ArrayList<Point>(liste_points.length);
-        for (int i = 0; i < liste_points.length; i++) {
+        for (int i = 0; i < liste_points.length; i++)
             points.add(liste_points[i]);
-        }
         ArrayList<ArrayList<Point>> comps = new ArrayList<ArrayList<Point>>();
         while (points.size() > 0) {
             ArrayList<Point> composant = new ArrayList<Point> ();
@@ -165,9 +164,7 @@ public class Reseaux {
                         composant.add(point);
                         points.remove(j);
                         j--;
-                    }
-                }
-            }
+            }}}
             comps.add(composant);
         }
         return comps;
