@@ -7,10 +7,9 @@ import model.Point;
 public class ShowBorders extends OperationOnAllPoints {
   @Override
   public Paint computePoint (Reseaux r, Point p) {
-    if (r.isABorderPoint(p)) {
+    if (r.isABorderPoint(p))
       return OperationOnAllPoints.COLOR_TRUE;
-    } else {
+    else
       return OperationOnAllPoints.NO_COLOR;
-    }
   }
 }

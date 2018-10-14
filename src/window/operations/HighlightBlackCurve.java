@@ -15,14 +15,15 @@ public class HighlightBlackCurve extends OperationOnPoints {
     Map<Point, Paint> colorMask = new HashMap<Point, Paint> ();
     Point points [] = this.points.toArray(new Point [this.points.size()]);
     Color c;
-    if (r.isASimpleBlackCurve(points)) {
+
+    if (r.isASimpleBlackCurve(points))
       c = Color.GREEN;
-    } else {
+    else
       c = Color.RED;
-    }
-    for (Point p : points) {
+
+    for (Point p : points)
       colorMask.put(p, c);
-    }
+
     return colorMask;
   }
 

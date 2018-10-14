@@ -14,12 +14,12 @@ public abstract class OperationOnPoints implements Operation {
     this.points = new ArrayList<Point> ();
   }
 
+  @Override
   public void processPoint (Point p) {
-    if (this.points.contains(p)) {
+    if (this.points.contains(p))
       this.points.remove(p);
-    } else {
+    else
       this.points.add(p);
-    }
   }
 
   public abstract Map<Point, Paint> makeColorMask (Reseaux r);

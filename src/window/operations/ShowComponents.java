@@ -31,16 +31,25 @@ public class ShowComponents implements Operation {
     HashMap<Point, Paint> colorMap = new HashMap<Point, Paint> ();
     ArrayList<ArrayList<Point>> composants = r.computeComponents();
     Iterator<ArrayList<Point>> it = composants.iterator();
-    while (it.hasNext()) {
+
+    // si rien à afficher
+    if (!this.showBlackComponents && !this.showWhiteComponents)
+      return colorMap;
+
+    // enlève les composants qu'on affiche pas
+    while (it.hasNext())
+    {
       ArrayList<Point> comp = it.next();
-      if (r.getColor(comp.get(0)) == Reseaux.BLANC && !this.showWhiteComponents) {
+      if (r.getColor(comp.get(0)) == Reseaux.BLANC && !this.showWhiteComponents)
         it.remove();
-      }
-      else if (r.getColor(comp.get(0)) == Reseaux.NOIR && !this.showBlackComponents) {
+      else if (r.getColor(comp.get(0)) == Reseaux.NOIR && !this.showBlackComponents)
         it.remove();
-      }
     }
-    if (composants.size() == 0) return colorMap;
+
+    // au cas où...
+    if (composants.size() == 0)
+      return colorMap;
+
     Color[] palette = this.makeRainbowPalette(composants.size());
     for (int i = 0; i < composants.size(); i++) {
       ArrayList<Point> comp = composants.get(i);
@@ -51,7 +60,10 @@ public class ShowComponents implements Operation {
     return colorMap;
   }
 
-  private Color[] makeRainbowPalette (int nbColors) {
+  private Color[] makeRainbowPalette (int nbColors) throws IllegalArgumentException {
+    if (nbColors <= 0)
+      throw new IllegalArgumentException ("le nombre de couleurs doit être positif et non nul");
+
     Color[] palette = new Color [nbColors];
     double baseHue = 360/nbColors;
     for (int i = 0; i < nbColors; i++) {

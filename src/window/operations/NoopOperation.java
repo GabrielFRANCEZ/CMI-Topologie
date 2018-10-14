@@ -10,6 +10,7 @@ import model.Point;
 import model.Reseaux;
 
 public class NoopOperation implements Operation {
+  @Override
   public void processPoint (Point p) {
     return;
   }

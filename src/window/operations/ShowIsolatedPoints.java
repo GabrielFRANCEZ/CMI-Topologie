@@ -8,11 +8,10 @@ public class ShowIsolatedPoints extends OperationOnAllPoints {
 
   @Override
   public Paint computePoint(Reseaux r, Point p) {
-    if (r.isAnIsolatedPoint(p)) {
+    if (r.isAnIsolatedPoint(p))
       return OperationOnAllPoints.COLOR_TRUE;
-    } else {
+    else
       return OperationOnAllPoints.NO_COLOR;
-    }
   }
 
 }

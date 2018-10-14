@@ -13,20 +13,21 @@ public abstract class OperationOnAllPoints implements Operation {
   public static final Color COLOR_TRUE = Color.GREEN;
   public static final Color NO_COLOR = null;
 
+  @Override
   public void processPoint (Point p) {
     return;
   }
 
+  @Override
   public Map<Point, Paint> makeColorMask (Reseaux r) {
     Map<Point, Paint> colorMask = new HashMap<Point, Paint> ();
     for (int i = 0; i < r.getSizeX(); i++) {
       for (int j = 0; j < r.getSizeY(); j++) {
         Point p = new Point (i, j);
         Paint c = this.computePoint(r, p);
-        if (c != NO_COLOR)
+        if (c != NO_COLOR) {
           colorMask.put(p, c);
-      }
-    }
+    }}}
     return colorMask;
   }
 

@@ -8,13 +8,12 @@ public class ShowSimplePoints extends OperationOnAllPoints {
 
   @Override
   public Paint computePoint(Reseaux r, Point p) {
-    if (r.getColor(p) == Reseaux.BLANC) {
+    if (r.getColor(p) == Reseaux.BLANC)
       return OperationOnAllPoints.NO_COLOR;
-    } else if (r.isSimple(p)) {
+    else if (r.isSimple(p))
       return OperationOnAllPoints.COLOR_TRUE;
-    } else {
+    else
       return OperationOnAllPoints.COLOR_FALSE;
-    }
   }
 
 }
