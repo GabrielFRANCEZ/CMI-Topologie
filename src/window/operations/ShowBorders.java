@@ -10,7 +10,7 @@ public class ShowBorders extends OperationOnAllPoints {
     if (r.isABorderPoint(p)) {
       return OperationOnAllPoints.COLOR_TRUE;
     } else {
-      return OperationOnAllPoints.COLOR_FALSE;
+      return OperationOnAllPoints.NO_COLOR;
     }
   }
 }
