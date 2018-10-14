@@ -64,6 +64,8 @@ public class TopologyController {
       this.gridManager.displayGrid();
       this.radioBlackComponentAdj4.setSelected(true);
       this.radioWhiteComponentAdj8.setSelected(true);
+      this.ckShBComp.setSelected(true);
+      this.ckShWComp.setSelected(true);
   }
 
   @FXML
